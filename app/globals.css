@@ -759,3 +759,114 @@ button:focus-visible {
     min-height: auto;
   }
 }
+
+
+.siteFooter {
+  padding: 64px 0;
+  color: #dce7df;
+  background: #14231b;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.7fr 0.8fr;
+  gap: 56px;
+}
+
+.footerBrand {
+  font-family: Georgia, serif;
+  font-size: 22px;
+}
+
+.siteFooter p {
+  max-width: 440px;
+  margin: 14px 0 0;
+  color: #93a79a;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.siteFooter nav,
+.footerMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.siteFooter nav a,
+.footerMeta a {
+  border-bottom: 1px solid transparent;
+}
+
+.siteFooter nav a:hover,
+.siteFooter nav a:focus-visible,
+.footerMeta a:hover,
+.footerMeta a:focus-visible {
+  border-bottom-color: rgba(220,231,223,0.35);
+}
+
+.footerMeta {
+  color: #93a79a;
+}
+
+.footerMeta a {
+  color: #dce7df;
+}
+
+.policyPage {
+  min-height: 100vh;
+  padding: 90px 0;
+  background: var(--paper);
+}
+
+.policyContent {
+  max-width: 780px;
+}
+
+.policyContent h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(54px, 8vw, 88px);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.policyLead {
+  margin: 28px 0 54px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.policyContent section {
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+}
+
+.policyContent section h2 {
+  margin: 0 0 10px;
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.policyContent section p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.policyContent > .textLink {
+  display: inline-block;
+  margin-top: 36px;
+}
+
+@media (max-width: 900px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
