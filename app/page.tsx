@@ -5,6 +5,7 @@ import { PUBLIC_RESEARCH_PROJECTS } from "../data/research-projects";
 import { TrustPanel } from "../components/TrustPanel";
 import { SiteFooter } from "../components/SiteFooter";
 import { ForAgeDatasetPanel } from "../components/ForAgeDatasetPanel";
+import { RealPointCloudViewer } from "../components/RealPointCloudViewer";
 
 const modalities = [
   {
@@ -74,6 +75,10 @@ export default function Home() {
             <ForAgeDatasetPanel />
           </div>
         </div>
+      </section>
+
+      <section className="section shell">
+        <RealPointCloudViewer />
       </section>
 
       <section className="section shell" id="modalities">
