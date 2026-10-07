@@ -1,15 +1,10 @@
-import dynamic from "next/dynamic";
 import { SiteNav } from "../components/SiteNav";
 import { SkipLink } from "../components/SkipLink";
 import { ResearchCaseCard } from "../components/ResearchCaseCard";
 import { PUBLIC_RESEARCH_PROJECTS } from "../data/research-projects";
 import { TrustPanel } from "../components/TrustPanel";
 import { SiteFooter } from "../components/SiteFooter";
-
-const ForestExplorer = dynamic(
-  () => import("../components/ForestExplorer").then((module) => module.ForestExplorer),
-  { ssr: false }
-);
+import { ForAgeDatasetPanel } from "../components/ForAgeDatasetPanel";
 
 const modalities = [
   {
@@ -53,13 +48,13 @@ export default function Home() {
               <span>to individual trees.</span>
             </h1>
             <p className="lede">
-              An interactive exploration of how imagery, LiDAR, satellite
-              observations, field data, and AI can contribute to richer
-              forest and biodiversity understanding.
+              A research-oriented interface for real forest remote-sensing data,
+              individual-tree 3D point clouds, published AI methods, and reproducible
+              biodiversity analysis.
             </p>
             <div className="heroActions">
-              <a className="primaryButton" href="#modalities">
-                Explore the modalities
+              <a className="primaryButton" href="#dataset">
+                Explore the real dataset
               </a>
               <a
                 className="textLink"
@@ -71,11 +66,13 @@ export default function Home() {
               </a>
             </div>
             <div className="heroFootnote">
-              Synthetic demo scene · no restricted or institution-internal data
+              Real public research metadata · raw datasets added only after license review
             </div>
           </div>
 
-          <ForestExplorer />
+          <div id="dataset">
+            <ForAgeDatasetPanel />
+          </div>
         </div>
       </section>
 
@@ -86,9 +83,9 @@ export default function Home() {
             <h2>Different sensors describe different parts of the same forest.</h2>
           </div>
           <p>
-            The prototype does not treat one modality as the answer. It is designed
-            around the idea that complementary observations can be aligned, evaluated,
-            and interpreted together.
+            These modalities are now framed as real data sources and published research tasks.
+            The next viewer iteration will render actual point clouds and Norwegian elevation
+            context instead of procedural tree geometry.
           </p>
         </div>
 
@@ -175,9 +172,9 @@ export default function Home() {
             <h2>Built to be safe to publish.</h2>
           </div>
           <p>
-            The repository uses public research pages for conceptual framing and
-            synthetic data for the initial 3D experience. External datasets or assets
-            are only added after provenance and reuse rights are documented.
+            The repository uses public research pages and dataset metadata with explicit
+            citations. Real point-cloud or elevation files will only be deployed after
+            provenance, attribution, and redistribution obligations are documented.
           </p>
           <a href="https://github.com/glaucojrcarvalho/multimodal-forest-explorer">
             View source policy ↗
