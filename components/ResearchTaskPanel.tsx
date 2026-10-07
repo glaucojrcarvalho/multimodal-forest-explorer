@@ -52,6 +52,7 @@ export function ResearchTaskPanel() {
               <span>{task.label}</span>
               <span>{task.status}</span>
             </div>
+            <div className="referenceBadge">Reference only · model not executed here</div>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
 
