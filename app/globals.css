@@ -1735,3 +1735,40 @@ button:focus-visible {
     padding: 72px 0;
   }
 }
+
+
+/* Desktop hero should frame the product, not vertically center it inside a full viewport. */
+.hero {
+  min-height: auto;
+}
+
+.heroGrid {
+  min-height: auto;
+  padding-top: clamp(54px, 6vw, 86px);
+  padding-bottom: clamp(62px, 7vw, 104px);
+}
+
+@media (min-width: 901px) {
+  .heroGrid {
+    align-items: center;
+  }
+
+  .heroCopy,
+  #dataset {
+    align-self: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .heroGrid {
+    padding-top: 42px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroGrid {
+    padding-top: 28px;
+    padding-bottom: 24px;
+  }
+}
