@@ -1378,3 +1378,360 @@ button:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* v0.1 completion: evidence, research tasks, and tighter mobile rhythm */
+
+.compactSection {
+  padding-top: 82px;
+  padding-bottom: 82px;
+}
+
+.evidencePanel,
+.taskPanel {
+  padding: 42px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255,255,255,0.44);
+}
+
+.evidenceIntro,
+.taskIntro {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px 64px;
+  align-items: end;
+}
+
+.evidenceIntro .eyebrow,
+.taskIntro .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.evidenceIntro h2,
+.taskIntro h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.evidenceIntro > p,
+.taskIntro > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.evidenceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.evidenceGrid article {
+  min-height: 205px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(245,244,239,0.62);
+}
+
+.evidenceGrid article > span,
+.taskCardTop,
+.evidenceSource > span {
+  color: #738077;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.evidenceGrid strong {
+  display: block;
+  margin-top: 42px;
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.evidenceGrid p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.evidenceSource {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.evidenceSource a {
+  color: var(--forest);
+  font-size: 11px;
+  border-bottom: 1px solid rgba(23,61,45,0.3);
+}
+
+.taskGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.taskCard {
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(245,244,239,0.62);
+}
+
+.taskCardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.taskCard h3 {
+  margin: 52px 0 14px;
+  font-family: Georgia, serif;
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.taskCard > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.taskCard dl {
+  margin: 24px 0 0;
+}
+
+.taskCard dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+}
+
+.taskCard dt {
+  color: #738077;
+}
+
+.taskCard dd {
+  margin: 0;
+  text-align: right;
+}
+
+.taskCard > a {
+  width: fit-content;
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--forest);
+  font-size: 11px;
+  border-bottom: 1px solid rgba(23,61,45,0.3);
+}
+
+.layerStatus {
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #738077;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.layerStatus.live {
+  color: #fff;
+  border-color: var(--forest);
+  background: var(--forest);
+}
+
+.pointCloudHint {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  color: #89a092;
+  background: rgba(13,23,18,0.66);
+  backdrop-filter: blur(10px);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 900px) {
+  .evidenceIntro,
+  .taskIntro {
+    grid-template-columns: 1fr;
+  }
+
+  .evidenceGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .taskGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .taskCard {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding-bottom: 24px;
+  }
+
+  .heroGrid {
+    min-height: auto;
+    gap: 44px;
+    padding-top: 28px;
+    padding-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(46px, 14vw, 58px);
+  }
+
+  .lede {
+    margin-top: 24px;
+    font-size: 16px;
+  }
+
+  .heroFootnote {
+    margin-top: 28px;
+  }
+
+  .section,
+  .compactSection {
+    padding-top: 58px;
+    padding-bottom: 58px;
+  }
+
+  .datasetMetrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .datasetMetrics > div {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .datasetMetrics > div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .datasetMetrics > div:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+
+  .datasetBody article {
+    min-height: auto;
+  }
+
+  .datasetHeader {
+    gap: 18px;
+    padding: 22px 0;
+  }
+
+  .pointCloudHeader h2 {
+    font-size: 42px;
+  }
+
+  .pointCloudViewport {
+    min-height: 430px;
+  }
+
+  .pointCloudHint {
+    top: auto;
+    right: 12px;
+    bottom: 54px;
+    left: 12px;
+    text-align: center;
+  }
+
+  .evidencePanel,
+  .taskPanel {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .evidenceGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .evidenceGrid article {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .evidenceGrid strong {
+    margin-top: 26px;
+    font-size: 24px;
+  }
+
+  .evidenceSource {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .taskCard {
+    padding: 20px;
+  }
+
+  .taskCardTop {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .taskCard h3 {
+    margin-top: 34px;
+    font-size: 27px;
+  }
+
+  .modalityGrid {
+    margin-top: 36px;
+  }
+
+  .modalityCard {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .modalityCard h3 {
+    margin: 34px 0 12px;
+    font-size: 25px;
+  }
+
+  .cardTop {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .methodSection {
+    padding: 72px 0;
+  }
+}
