@@ -1,0 +1,35 @@
+name: Data source review
+description: Propose a dataset, imagery source, model, or 3D asset
+title: "[Data] "
+labels: []
+body:
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License or reuse basis
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Intended use
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: The source is public or explicitly accessible for this use
+          required: true
+        - label: Redistribution or derived-use terms have been reviewed
+          required: true
+        - label: Sensitive location or personal data risks have been considered
+          required: true
