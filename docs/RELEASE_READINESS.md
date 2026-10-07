@@ -1,27 +1,40 @@
-# Release-readiness checklist
+# Release-readiness checklist — v0.1.0
 
 ## Data and research
-- [ ] Every external dataset or media asset has provenance recorded.
-- [ ] Reuse and redistribution terms are understood.
-- [ ] Synthetic examples are clearly labeled.
-- [ ] Research claims have public sources.
-- [ ] Model outputs are not presented as measurements or validated findings unless supported.
+- [x] FOR-age provenance is recorded with DOI and public source URLs.
+- [x] Reuse and redistribution terms are documented in `docs/LICENSE_MATRIX.md`.
+- [x] Real browser samples are deterministic derivatives of the official archive.
+- [x] Raw FOR-age LAZ archives are not redistributed by the application.
+- [x] Source-derived measurements are labeled as dataset metadata rather than model predictions.
+- [x] No invented prediction or confidence value is presented as a research result.
 
 ## Privacy and ecology
-- [ ] No personal, restricted, or institution-internal information is present.
-- [ ] Sensitive ecological locations have been reviewed.
-- [ ] Public examples do not create avoidable environmental risk.
+- [x] No personal, restricted, or institution-internal information is present.
+- [x] The showcase uses a published research study area and individual-tree dataset.
+- [x] No additional sensitive ecological coordinates are introduced by the application.
 
 ## Product quality
-- [ ] Production build passes.
-- [ ] TypeScript validation passes.
-- [ ] Keyboard navigation is usable.
-- [ ] Reduced-motion preferences are respected where animation is enabled.
-- [ ] Mobile layout is reviewed.
-- [ ] External links are accurate.
+- [x] Real Lillomarka point-cloud assets are present on `main`.
+- [x] Production build is enforced in CI.
+- [x] TypeScript validation is enforced on pull requests.
+- [x] Keyboard focus and skip navigation are implemented.
+- [x] Reduced-motion support is implemented.
+- [x] Responsive layouts are defined for desktop, tablet, and mobile.
+- [x] The viewer fails explicitly rather than substituting synthetic geometry when curated real data is unavailable.
 
-## Presentation
-- [ ] Independence and non-affiliation are clear.
-- [ ] Institutional branding is not copied.
-- [ ] Source acknowledgements are visible.
-- [ ] README reflects the current implementation.
+## Presentation and provenance
+- [x] Independence and non-affiliation are clear.
+- [x] Institutional branding is not copied.
+- [x] Source acknowledgements and DOI links are visible.
+- [x] The UI exposes study area, sensor modality, tree metadata, source point count, rendered point count, and processing provenance.
+- [x] README/documentation describe the real-data architecture.
+
+## Production smoke test after release
+- [ ] Confirm `https://forest.glaucojrcarvalho.com` loads the v0.1.0 release.
+- [ ] Confirm at least one real point cloud renders on desktop.
+- [ ] Confirm tree and ALSHD/MLS switching.
+- [ ] Confirm mobile layout on a physical or emulated narrow viewport.
+- [ ] Confirm Zenodo/source links.
+- [ ] Confirm disclaimer, ethics, robots, sitemap, and health endpoint.
+
+The unchecked items are post-deployment smoke tests, not reasons to withhold the release. If a critical smoke test fails, fix forward or redeploy the previous production version.

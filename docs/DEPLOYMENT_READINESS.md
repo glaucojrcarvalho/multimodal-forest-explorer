@@ -1,66 +1,67 @@
 # Deployment readiness audit
 
-This document describes what must be true before the first Vercel production deployment.
+This document describes the release gate for the first production version backed by real public forest point-cloud data.
 
 ## Automated validation
 
 - [x] Next.js production build is enforced by GitHub Actions.
 - [x] TypeScript no-emit validation is enforced on pull requests.
 - [x] Security workflows are configured for the repository's private-to-public lifecycle.
-- [x] The application does not require secret environment variables.
+- [x] The application runtime does not require secret environment variables.
 - [x] A public health endpoint exists at `/api/health`.
 
-Run locally when needed:
+## Real-data product readiness
 
-```bash
-npm install
-npm run check
-```
+- [x] The primary 3D laboratory renders real FOR-age individual-tree geometry, not procedural trees.
+- [x] Six browser-ready point clouds represent three real Lillomarka trees with paired ALSHD/MLS acquisitions.
+- [x] Browser samples preserve source-derived species, age, height, crown diameter, crown area, modality, split, and point counts.
+- [x] Large raw LAZ archives remain on the official Zenodo record and are not bundled into the application.
+- [x] Browser assets are deterministic derivatives produced by `scripts/build_forage_showcase.py`.
+- [x] Users can rotate/zoom the point cloud and switch among the curated trees and sensor acquisitions.
+- [x] Local LAS/LAZ inspection remains available without uploading the file to the application.
 
-## Product readiness
+## Provenance, licensing, and scientific claims
 
-- [x] Interactive 3D forest uses deterministic synthetic data.
-- [x] RGB, LiDAR, satellite, field, and AI visualization modes are represented.
-- [x] Modality controls expose pressed state to assistive technology.
-- [x] Reduced-motion preference is respected by forest animation and auto-rotation.
-- [x] Keyboard focus and skip-to-content behavior are present.
-- [x] Responsive layouts are defined for desktop, tablet, and mobile widths.
-
-## Research and provenance
-
-- [x] Research framing is based on documented public sources.
-- [x] The prototype states that it is independent and not institutionally endorsed.
-- [x] Synthetic data is identified as synthetic.
-- [x] Illustrative uncertainty is explicitly labeled as non-empirical.
-- [x] Public research case studies link to their public sources.
-- [x] Data ethics and research disclaimer pages are part of the site.
+- [x] FOR-age is identified by DOI `10.5281/zenodo.19853987`.
+- [x] The generated manifest records source record, source archive, source metadata, processing method, and license.
+- [x] FOR-age licensing is documented as Open Science & Open Model License (OSOML) v1.0.
+- [x] Derived browser assets are generated reproducibly from the official source archive.
+- [x] The interface distinguishes published/source-derived values from future or conceptual AI functionality.
+- [x] Arbitrary synthetic uncertainty/model metrics were removed from the primary research interface.
+- [x] The project states that it is independent and not institutionally endorsed.
+- [x] No private correspondence, application material, restricted endpoints, or credentials are used.
 
 ## Security and publication
 
-- [x] No credentials are required by the runtime.
 - [x] Environment examples contain only public-safe placeholders.
 - [x] Baseline response security headers are configured.
 - [x] Framework identification header is disabled.
-- [x] No private correspondence or application-specific material is used.
-- [x] External research assets are not copied into the repository.
+- [x] External research links are public sources.
+- [x] The release-only Vercel deployment workflow stores its deploy hook in GitHub Secrets.
 
-## Metadata and discoverability
+## Metadata and domain
 
-- [x] Canonical site URL is controlled through `NEXT_PUBLIC_SITE_URL`.
+- [x] `NEXT_PUBLIC_SITE_URL` is configured for `https://forest.glaucojrcarvalho.com`.
+- [x] The custom domain resolves to the Vercel project.
 - [x] Open Graph and Twitter metadata are configured.
-- [x] Project-owned application icon exists.
-- [x] Robots and sitemap routes are present.
+- [x] Robots and sitemap routes use the canonical site URL.
+- [x] Disclaimer, ethics, and health routes are part of the application.
 
-## Manual Vercel steps remaining
+## Release procedure
 
-These are intentionally not stored in the repository:
+1. Merge the final release-gate PR after Build and TypeScript checks pass.
+2. Publish GitHub release `v0.1.0`.
+3. The release event triggers `.github/workflows/deploy-release.yml`.
+4. Verify production at `https://forest.glaucojrcarvalho.com`.
+5. Smoke-test:
+   - home page;
+   - real Lillomarka point-cloud viewer;
+   - switching trees and ALSHD/MLS;
+   - dataset/source links;
+   - `/disclaimer`;
+   - `/ethics`;
+   - `/robots.txt`;
+   - `/sitemap.xml`;
+   - `/api/health`.
 
-- [ ] Import the GitHub repository into Vercel.
-- [ ] Set `NEXT_PUBLIC_SITE_URL` to the preview/production canonical URL.
-- [ ] Deploy and verify the preview.
-- [ ] Add the custom domain after registration.
-- [ ] Apply Vercel-provided DNS records at the domain/DNS provider.
-- [ ] Switch `NEXT_PUBLIC_SITE_URL` to the final HTTPS domain and redeploy.
-- [ ] Verify the final production URL, social card, robots, sitemap, disclaimer, ethics page, and health endpoint.
-
-Once the automated checks on the final deployment-readiness PR are green, the codebase is technically ready to import into Vercel.
+Kartverket terrain/canopy context and additional research-task visualization are intentionally post-v0.1 improvements and are not blockers for this release.
