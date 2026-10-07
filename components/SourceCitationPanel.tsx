@@ -2,8 +2,8 @@ import type { ProvenanceRecord } from "../lib/provenance";
 
 export function SourceCitationPanel({ source }: { source: ProvenanceRecord }) {
   return (
-    <aside>
-      <p>{source.organization ?? "Source"}</p>
+    <aside className="citationPanel" aria-label="Research source">
+      <span className="trustLabel">{source.organization ?? "Source"}</span>
       <strong>{source.title}</strong>
       <p>{source.usageNote}</p>
       {source.sourceUrl ? (
