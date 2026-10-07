@@ -7,5 +7,9 @@ const labels: Record<ProvenanceKind, string> = {
 };
 
 export function ProvenanceBadge({ kind }: { kind: ProvenanceKind }) {
-  return <span title="Data provenance">{labels[kind]}</span>;
+  return (
+    <span className={`provenanceBadge provenance-${kind}`} title="Data provenance">
+      {labels[kind]}
+    </span>
+  );
 }
