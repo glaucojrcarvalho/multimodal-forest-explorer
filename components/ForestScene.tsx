@@ -4,6 +4,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import type { ModalityId } from "../lib/types/forest";
+import { RgbLayer } from "./layers/RgbLayer";
+import { LidarLayer } from "./layers/LidarLayer";
+import { SatelliteLayer } from "./layers/SatelliteLayer";
+import { FieldObservationLayer } from "./layers/FieldObservationLayer";
+import { AiOutputLayer } from "./layers/AiOutputLayer";
 
 type TreeDatum = {
   x: number;
@@ -87,7 +93,7 @@ function Forest() {
   );
 }
 
-export function ForestScene() {
+export function ForestScene({ activeModality = "rgb" }: { activeModality?: ModalityId }) {
   return (
     <Canvas
       shadows
@@ -105,6 +111,11 @@ export function ForestScene() {
         shadow-mapSize={[1024, 1024]}
       />
       <Forest />
+      <RgbLayer visible={activeModality === "rgb"} />
+      <LidarLayer visible={activeModality === "lidar"} />
+      <SatelliteLayer visible={activeModality === "satellite"} />
+      <FieldObservationLayer visible={activeModality === "field"} />
+      <AiOutputLayer visible={activeModality === "ai"} />
       <OrbitControls
         enablePan={false}
         minDistance={8}
