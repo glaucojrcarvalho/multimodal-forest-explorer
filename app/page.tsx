@@ -6,6 +6,7 @@ import { TrustPanel } from "../components/TrustPanel";
 import { SiteFooter } from "../components/SiteFooter";
 import { ForAgeDatasetPanel } from "../components/ForAgeDatasetPanel";
 import { RealPointCloudViewer } from "../components/RealPointCloudViewer";
+import { ResearchTaskPanel } from "../components/ResearchTaskPanel";
 
 const modalities = [
   {
@@ -106,6 +107,10 @@ export default function Home() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="section shell">
+        <ResearchTaskPanel />
       </section>
 
       <section className="methodSection" id="method">
