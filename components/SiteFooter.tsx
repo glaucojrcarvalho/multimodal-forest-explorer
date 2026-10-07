@@ -1,4 +1,4 @@
-import { SITE } from "../lib/site";
+import { FOR_AGE } from "../data/for-age";
 
 export function SiteFooter() {
   return (
@@ -9,8 +9,8 @@ export function SiteFooter() {
             Forest Intelligence Explorer
           </a>
           <p>
-            Independent research prototype exploring multimodal AI for forest
-            monitoring and biodiversity understanding.
+            Independent research prototype for real forest point clouds,
+            source-backed AI research tasks, and reproducible tree-level analysis.
           </p>
         </div>
 
@@ -18,14 +18,14 @@ export function SiteFooter() {
           <a href="/disclaimer">Research disclaimer</a>
           <a href="/ethics">Data ethics</a>
           <a href="#research">Public research</a>
-          <a href="#sources">Source policy</a>
+          <a href="#sources">Sources & provenance</a>
         </nav>
 
         <div className="footerMeta">
-          <a href={SITE.repositoryUrl} target="_blank" rel="noreferrer">
-            Source repository ↗
+          <a href={FOR_AGE.zenodoUrl} target="_blank" rel="noreferrer">
+            FOR-age dataset ↗
           </a>
-          <span>Public-safe synthetic prototype · 2026</span>
+          <span>Independent prototype · real public data · 2026</span>
         </div>
       </div>
     </footer>

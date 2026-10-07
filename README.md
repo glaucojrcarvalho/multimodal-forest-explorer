@@ -1,88 +1,114 @@
-# Multimodal Forest Explorer
+# Forest Intelligence Explorer
 
-An independent research-oriented prototype for exploring how multimodal data and AI can support forest monitoring, tree-level analysis, and biodiversity understanding.
+An independent research-oriented prototype for exploring real forest point clouds,
+tree-level analysis, and published AI research in a source-traceable interface.
 
-## Status
+## Current status
 
-Early prototype. The repository is intentionally developed with a **public-data-only** policy so it can be made public without exposing private, application-specific, or institution-internal information.
+The deployed prototype is backed by a small real-data showcase derived from the
+**FOR-age Dataset** (DOI `10.5281/zenodo.19853987`).
+
+Current shipped slice:
+
+- three real Lillomarka trees;
+- paired ALSHD and MLS acquisitions (six point clouds);
+- source-derived species, tree-age label, height, crown diameter, crown area,
+  split, and point-count metadata;
+- interactive browser visualization with rotate/zoom and sensor switching;
+- deterministic preprocessing capped at 100,000 XYZ points per cloud;
+- published FOR-age and ForestFormer3D research context;
+- provenance, license, disclaimer, and data-ethics boundaries.
+
+Production: https://forest.glaucojrcarvalho.com
+
+This repository is **not an official NIBIO, NMBU, SmartForest, or SingleTree project**
+and does not imply endorsement or affiliation.
 
 ## Research framing
 
-The initial product direction is inspired by publicly available research from NIBIO and collaborators on:
+The prototype is informed by public research from NIBIO, SmartForest, SingleTree,
+and collaborators on digital forestry, individual-tree LiDAR analysis, 3D deep
+learning, and forest decision support.
 
-- digitalisation of forestry through **SFI SmartForest**;
-- AI-assisted **individual-tree delineation** from high-resolution imagery and LiDAR;
-- tree-level forest management and monitoring;
-- cloud-based analysis of forest sensor data;
-- multimodal forest and biodiversity mapping.
+The primary real-data anchor is:
 
-This repository is **not an official NIBIO, NMBU, SmartForest, or SingleTree project** and does not imply endorsement or affiliation.
+- FOR-age Dataset: https://zenodo.org/records/19853987
+- Paper: https://doi.org/10.1016/j.rse.2026.115462
+- Research code: https://github.com/SingleTree-EU/FORage
+- Benchmark: https://www.codabench.org/competitions/16014/
 
-## Principles
+Additional public research context is documented under `data/` and `docs/`.
 
-1. **Public sources only** — no private emails, application materials, unpublished datasets, credentials, or internal research information.
-2. **Traceable provenance** — project claims and example data must have a documented source and license/usage status.
-3. **No copied branding** — institutional names and logos are not used as product branding.
-4. **Research before decoration** — visualizations should correspond to a defensible sensing or analysis concept.
-5. **Synthetic-by-default demo data** — until a dataset is explicitly verified as reusable, 3D scenes and examples use synthetic or clearly licensed assets.
+## Product boundary
 
-## Planned experience
+**Live now:** real LiDAR-derived individual-tree point clouds and source-backed
+tree metadata.
 
-A 3D forest interface where users can move between data modalities and see how each contributes to tree- and landscape-level understanding:
-
-- RGB / drone imagery
-- LiDAR / point clouds
-- satellite observations
-- terrain and canopy structure
-- environmental or field observations
-- model outputs such as individual-tree delineation, biomass, age, or biodiversity indicators
-
-## Public research sources
-
-The first research notes are based on public NIBIO pages:
-
-- SFI SmartForest: https://www.nibio.no/en/projects/sfi-smartforest-bringing-industry-4.0-to-the-norwegian-forest-sector
-- Stefano Puliti — NIBIO profile and publications: https://www.nibio.no/en/employees/stefano-puliti
-- AI opens the door to single-tree-based forestry: https://www.nibio.no/en/about-eng/research-matters/division-of-forest-and-forest-resources/research-matters-forest-and-forest-resources-2024/ai-opens-the-door-to-single-tree-based-forestry
-- SmartForest with artificial intelligence in the cloud: https://www.nibio.no/en/about-eng/research-matters/division-of-forest-and-forest-resources/research-matters-forest-and-forest-resources-2022/smartforest-with-artificial-intelligence-in-the-cloud
-
-A more detailed source/provenance log will live under `docs/`.
-
-## License
-
-Source code licensing will be finalized before the repository is made public. Third-party datasets, imagery, models, publications, and assets remain subject to their original licenses and terms.
-
-
-## Current deployment status
-
-The application is prepared for a Vercel preview deployment. The runtime currently requires no secrets or private APIs.
-
-Before production:
-
-1. import the repository into Vercel;
-2. set `NEXT_PUBLIC_SITE_URL` to the canonical deployment URL;
-3. verify the preview deployment;
-4. attach the final custom domain and update the canonical URL.
-
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) and [docs/DEPLOYMENT_READINESS.md](docs/DEPLOYMENT_READINESS.md).
-
-## Local validation
-
-```bash
-npm install
-npm run check
-```
-
+**Roadmap:** RGB, satellite, field observations, Kartverket terrain/canopy context,
+and additional empirical model outputs. Roadmap layers must not be presented as
+implemented until real, reusable data and provenance are integrated.
 
 ## Real-data showcase pipeline
 
-The public viewer uses a deliberately small, reproducible derivative of the FOR-age dataset rather than bundling the full research archive.
+The application does not bundle the full 2.6 GB FOR-age archive.
 
-- Source: FOR-age, DOI `10.5281/zenodo.19853987`.
-- Study area: Lillomarka, Norway.
-- Showcase: three individual trees, each represented by ALSHD and MLS acquisitions.
-- Raw LAZ files are downloaded only during the data-build workflow and are not committed.
-- `scripts/build_forage_showcase.py` deterministically samples at most 100,000 XYZ points per cloud, preserves metres, and writes browser-ready Float32 binaries plus a provenance manifest.
-- Derived assets remain subject to the FOR-age OSOML v1.0 terms.
+`scripts/build_forage_showcase.py`:
 
-The workflow publishes generated assets to the `data/forage-showcase-v1` branch for review before they enter the deployable application.
+1. reads selected Lillomarka LAZ files from the official training archive;
+2. preserves metres while centering horizontal coordinates and ground-normalizing height;
+3. deterministically samples at most 100,000 points per cloud;
+4. writes browser-ready little-endian Float32 XYZ binaries;
+5. emits a provenance manifest containing source filenames, metadata, point counts,
+   processing description, DOI, and license.
+
+Raw LAZ/ZIP files are not committed to the application.
+
+The derived browser assets live under `public/data/for-age/` with an attribution
+notice and remain subject to the FOR-age OSOML v1.0 terms.
+
+## Engineering
+
+Stack:
+
+- Next.js 14 / React 18
+- React Three Fiber / Three.js
+- loaders.gl for local LAS/LAZ inspection
+- GitHub Actions validation
+- Vercel production deployment triggered only by published GitHub releases
+
+Local validation:
+
+```bash
+npm install
+npm run typecheck
+npm run build
+```
+
+The release workflow also executes `scripts/check_real_data_release.py` before
+triggering the Vercel production hook.
+
+## Publication principles
+
+1. **Public or explicitly reusable sources only.**
+2. **Traceable provenance for every external dataset and quantitative claim.**
+3. **No private correspondence, application material, credentials, or unpublished research.**
+4. **No institutional branding or implied affiliation.**
+5. **No invented model predictions or decorative scientific metrics.**
+6. **Planned functionality is labeled as roadmap, not presented as implemented.**
+
+See:
+
+- `docs/DATA_PROVENANCE.md`
+- `docs/LICENSE_MATRIX.md`
+- `docs/RELEASE_READINESS.md`
+- `/disclaimer`
+- `/ethics`
+
+## Licensing
+
+The FOR-age-derived browser data and the processing code used to generate it are
+subject to the FOR-age **Open Science & Open Model License (OSOML) v1.0**, as
+published with the Zenodo record.
+
+A repository-level license for the independently written application code has not
+yet been selected. Do not infer an application-code license from the dataset license.

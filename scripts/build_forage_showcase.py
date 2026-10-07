@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Build small browser-ready point-cloud samples from the public FOR-age archive.
 
-The output is derived data under the FOR-age OSOML v1.0 terms. The script is
-intentionally deterministic so the public demo can be reproduced from the
-source archive and metadata CSV.
+The output is derived data under the FOR-age OSOML v1.0 terms. Because this
+script processes that data, the script is also subject to the same OSOML v1.0
+terms published at https://zenodo.org/records/19853987.
+
+The implementation is intentionally deterministic so the public demo can be
+reproduced from the source archive and metadata CSV.
 """
 
 from __future__ import annotations

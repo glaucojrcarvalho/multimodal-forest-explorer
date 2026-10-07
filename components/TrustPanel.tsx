@@ -11,8 +11,8 @@ export function TrustPanel() {
         <p className="eyebrow">Provenance & scientific claims</p>
         <h2 id="trust-heading">Every number should trace back to a dataset, paper, or method.</h2>
         <p>
-          The interface no longer presents arbitrary uncertainty values or procedural
-          tree counts as if they were research measurements.
+          The interface does not present arbitrary uncertainty values, procedural tree
+          counts, or invented predictions as research measurements.
         </p>
       </div>
 
@@ -21,8 +21,8 @@ export function TrustPanel() {
           <span className="trustLabel">Dataset anchor</span>
           <strong>{FOR_AGE.title}</strong>
           <p>
-            DOI {FOR_AGE.doi}. Public dataset metadata is used directly; raw point-cloud
-            files are not yet redistributed by this repository.
+            DOI {FOR_AGE.doi}. Dataset metadata is source-derived, and the showcased
+            XYZ point clouds are reproducible derivatives of the official FOR-age LAZ data.
           </p>
         </article>
         <article>

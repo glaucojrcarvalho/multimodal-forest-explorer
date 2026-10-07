@@ -18,7 +18,7 @@ export function ForAgeDatasetPanel() {
       <div className="datasetHeader">
         <div>
           <p className="eyebrow">Current real-data anchor</p>
-          <h2 id="dataset-title">FOR-age: individual-tree 3D point clouds with measured age.</h2>
+          <h2 id="dataset-title">FOR-age: individual-tree 3D point clouds with tree-age labels.</h2>
         </div>
         <p>
           A 2026 open research dataset curated within SingleTree and SmartForest,
@@ -79,8 +79,8 @@ export function ForAgeDatasetPanel() {
       </div>
 
       <p className="datasetLicense">
-        License: {FOR_AGE.license.name}. This prototype currently references dataset metadata only;
-        raw point-cloud files are not redistributed by this repository.
+        License: {FOR_AGE.license.name}. This site serves six deterministic,
+        downsampled XYZ derivatives for the Lillomarka showcase; the original LAZ archives remain on Zenodo.
       </p>
     </section>
   );
