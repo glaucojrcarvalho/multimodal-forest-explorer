@@ -1,4 +1,6 @@
 import dynamic from "next/dynamic";
+import { SiteNav } from "../components/SiteNav";
+import { SkipLink } from "../components/SkipLink";
 
 const ForestExplorer = dynamic(
   () => import("../components/ForestExplorer").then((module) => module.ForestExplorer),
@@ -34,19 +36,10 @@ const modalities = [
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
+      <SkipLink />
       <section className="hero">
-        <nav className="nav shell">
-          <a className="brand" href="#top" aria-label="Forest Intelligence Explorer">
-            <span className="brandMark">F</span>
-            <span>Forest Intelligence Explorer</span>
-          </a>
-          <div className="navLinks">
-            <a href="#modalities">Modalities</a>
-            <a href="#method">Method</a>
-            <a href="#sources">Sources</a>
-          </div>
-        </nav>
+        <SiteNav />
 
         <div className="shell heroGrid" id="top">
           <div className="heroCopy">
