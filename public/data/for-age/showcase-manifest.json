@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "dataset": "FOR-age",
+  "studyArea": "Lillomarka, Norway",
+  "doi": "10.5281/zenodo.19853987",
+  "sourceRecord": "https://zenodo.org/records/19853987",
+  "sourceArchive": "https://zenodo.org/records/19853987/files/train.zip?download=1",
+  "sourceMetadata": "https://zenodo.org/records/19853987/files/FORage_tree_metadata_train_val.csv?download=1",
+  "license": "Open Science & Open Model License (OSOML) v1.0",
+  "processing": {
+    "coordinateTransform": "centred X/Z horizontal plane; ground-normalized Y; metres preserved",
+    "sampling": "deterministic random sample capped at 100,000 points per source cloud",
+    "script": "scripts/build_forage_showcase.py"
+  },
+  "samples": [
+    {
+      "id": "lillomarka_X1004_18_ALSHD",
+      "treeId": "lillomarka_X1004_18",
+      "project": "lillomarka",
+      "year": 21,
+      "modality": "ALSHD",
+      "plotId": "X1004",
+      "treeNumber": "18",
+      "species": "pine",
+      "heightM": 17.47,
+      "crownDiameterM": 7.88,
+      "crownAreaM2": 40.47,
+      "ageYears": 69,
+      "split": "train",
+      "sourceFile": "lillomarka_21_ALSHD_X1004_18_pine_69.laz",
+      "assetUrl": "/data/for-age/lillomarka_X1004_18_ALSHD.bin",
+      "sourcePointCount": 38976,
+      "renderedPointCount": 38976,
+      "boundsM": {
+        "width": 7.22,
+        "depth": 7.01,
+        "height": 17.47
+      }
+    },
+    {
+      "id": "lillomarka_X1004_18_MLS",
+      "treeId": "lillomarka_X1004_18",
+      "project": "lillomarka",
+      "year": 22,
+      "modality": "MLS",
+      "plotId": "X1004",
+      "treeNumber": "18",
+      "species": "pine",
+      "heightM": 17.66,
+      "crownDiameterM": 7.93,
+      "crownAreaM2": 42.28,
+      "ageYears": 70,
+      "split": "train",
+      "sourceFile": "lillomarka_22_MLS_X1004_18_pine_70.laz",
+      "assetUrl": "/data/for-age/lillomarka_X1004_18_MLS.bin",
+      "sourcePointCount": 72811,
+      "renderedPointCount": 72811,
+      "boundsM": {
+        "width": 7.309,
+        "depth": 6.989,
+        "height": 17.661
+      }
+    },
+    {
+      "id": "lillomarka_X1010_48_ALSHD",
+      "treeId": "lillomarka_X1010_48",
+      "project": "lillomarka",
+      "year": 21,
+      "modality": "ALSHD",
+      "plotId": "X1010",
+      "treeNumber": "48",
+      "species": "spruce",
+      "heightM": 19.81,
+      "crownDiameterM": 6.26,
+      "crownAreaM2": 18.0,
+      "ageYears": 93,
+      "split": "train",
+      "sourceFile": "lillomarka_21_ALSHD_X1010_48_spruce_93.laz",
+      "assetUrl": "/data/for-age/lillomarka_X1010_48_ALSHD.bin",
+      "sourcePointCount": 12482,
+      "renderedPointCount": 12482,
+      "boundsM": {
+        "width": 5.91,
+        "depth": 4.44,
+        "height": 19.81
+      }
+    },
+    {
+      "id": "lillomarka_X1010_48_MLS",
+      "treeId": "lillomarka_X1010_48",
+      "project": "lillomarka",
+      "year": 22,
+      "modality": "MLS",
+      "plotId": "X1010",
+      "treeNumber": "48",
+      "species": "spruce",
+      "heightM": 19.82,
+      "crownDiameterM": 6.25,
+      "crownAreaM2": 20.83,
+      "ageYears": 94,
+      "split": "train",
+      "sourceFile": "lillomarka_22_MLS_X1010_48_spruce_94.laz",
+      "assetUrl": "/data/for-age/lillomarka_X1010_48_MLS.bin",
+      "sourcePointCount": 241524,
+      "renderedPointCount": 100000,
+      "boundsM": {
+        "width": 6.13,
+        "depth": 4.98,
+        "height": 19.82
+      }
+    },
+    {
+      "id": "lillomarka_X1105_74_ALSHD",
+      "treeId": "lillomarka_X1105_74",
+      "project": "lillomarka",
+      "year": 21,
+      "modality": "ALSHD",
+      "plotId": "X1105",
+      "treeNumber": "74",
+      "species": "pine",
+      "heightM": 17.99,
+      "crownDiameterM": 8.84,
+      "crownAreaM2": 46.37,
+      "ageYears": 222,
+      "split": "train",
+      "sourceFile": "lillomarka_21_ALSHD_X1105_74_pine_222.laz",
+      "assetUrl": "/data/for-age/lillomarka_X1105_74_ALSHD.bin",
+      "sourcePointCount": 43283,
+      "renderedPointCount": 43283,
+      "boundsM": {
+        "width": 8.3,
+        "depth": 7.809,
+        "height": 17.991
+      }
+    },
+    {
+      "id": "lillomarka_X1105_74_MLS",
+      "treeId": "lillomarka_X1105_74",
+      "project": "lillomarka",
+      "year": 22,
+      "modality": "MLS",
+      "plotId": "X1105",
+      "treeNumber": "74",
+      "species": "pine",
+      "heightM": 18.21,
+      "crownDiameterM": 8.92,
+      "crownAreaM2": 46.87,
+      "ageYears": 223,
+      "split": "train",
+      "sourceFile": "lillomarka_22_MLS_X1105_74_pine_223.laz",
+      "assetUrl": "/data/for-age/lillomarka_X1105_74_MLS.bin",
+      "sourcePointCount": 120037,
+      "renderedPointCount": 100000,
+      "boundsM": {
+        "width": 8.379,
+        "depth": 7.82,
+        "height": 18.211
+      }
+    }
+  ]
+}
