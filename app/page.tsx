@@ -4,6 +4,7 @@ import { SkipLink } from "../components/SkipLink";
 import { ResearchCaseCard } from "../components/ResearchCaseCard";
 import { PUBLIC_RESEARCH_PROJECTS } from "../data/research-projects";
 import { TrustPanel } from "../components/TrustPanel";
+import { SiteFooter } from "../components/SiteFooter";
 
 const ForestExplorer = dynamic(
   () => import("../components/ForestExplorer").then((module) => module.ForestExplorer),
@@ -183,6 +184,7 @@ export default function Home() {
           </a>
         </div>
       </section>
+      <SiteFooter />
     </main>
   );
 }
