@@ -1,0 +1,21 @@
+# Dataset and model license matrix
+
+This matrix must be updated before any external dataset, model, imagery, or derived artifact is committed or deployed.
+
+| Resource | Owner / publisher | Use in this project | License / terms | Current redistribution status |
+|---|---|---|---|---|
+| FOR-age Dataset (DOI 10.5281/zenodo.19853987) | SingleTree / dataset authors | Public metadata, methodology, benchmark references; future candidate point-cloud source | Open Science & Open Model License (OSOML) v1.0. Attribution required. Derived data, processing code, and trained models carry open/share-alike obligations described by the license. | **Metadata references only. Raw files are not redistributed yet.** |
+| FOR-age research code | SingleTree-EU | Methodology reference only | Repository states GPL-3.0 / recommended AGPL-3.0 or GPL-3.0; inspect exact file/license before reuse. | Not copied. |
+| ForestFormer3D | SmartForest-no and upstream contributors | Segmentation-method reference only | Repository documents CC BY-NC 4.0 inheritance from OneFormer3D. | Not copied; no model weights redistributed. |
+| Kartverket Høydedata | Kartverket | Candidate real terrain / DSM / LiDAR context | Public/open datasets downloadable without BAAT are described by Høydedata as CC BY 4.0; verify the exact selected distribution before bundling. | Service links only; no dataset bundled yet. |
+| Synthetic forest geometry | This repository | Legacy prototype fallback | Project-owned | May remain only as an explicitly labeled fallback, not as empirical data. |
+
+## Release rule
+
+No external file enters `public/`, a deployment artifact, or a preprocessing pipeline until:
+
+1. its exact source URL is recorded;
+2. the license/version is recorded;
+3. attribution text is prepared;
+4. redistribution and derivative obligations are understood;
+5. any ecological/location sensitivity is reviewed.
