@@ -72,3 +72,17 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) and [docs/DEPLOYMENT_READINESS.md](
 npm install
 npm run check
 ```
+
+
+## Real-data showcase pipeline
+
+The public viewer uses a deliberately small, reproducible derivative of the FOR-age dataset rather than bundling the full research archive.
+
+- Source: FOR-age, DOI `10.5281/zenodo.19853987`.
+- Study area: Lillomarka, Norway.
+- Showcase: three individual trees, each represented by ALSHD and MLS acquisitions.
+- Raw LAZ files are downloaded only during the data-build workflow and are not committed.
+- `scripts/build_forage_showcase.py` deterministically samples at most 100,000 XYZ points per cloud, preserves metres, and writes browser-ready Float32 binaries plus a provenance manifest.
+- Derived assets remain subject to the FOR-age OSOML v1.0 terms.
+
+The workflow publishes generated assets to the `data/forage-showcase-v1` branch for review before they enter the deployable application.

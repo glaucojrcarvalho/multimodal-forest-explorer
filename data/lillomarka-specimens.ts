@@ -1,36 +1,69 @@
 export interface LillomarkaSpecimen {
   id: string;
+  treeId: string;
   acquisition: "ALSHD" | "MLS";
   species: "spruce" | "pine";
   ageYears: number;
+  heightM: number;
   plot: string;
 }
 
-const ids = [
-  "lillomarka_21_ALSHD_X1002_10_spruce_22",
-  "lillomarka_21_ALSHD_X1004_18_pine_69",
-  "lillomarka_21_ALSHD_X1009_33_pine_42",
-  "lillomarka_22_MLS_X1205_146_pine_209",
-  "lillomarka_22_MLS_X1206_155_spruce_127",
-  "lillomarka_22_MLS_X1206_163_spruce_141"
-] as const;
-
-function parseSpecimen(id: string): LillomarkaSpecimen {
-  const parts = id.split("_");
-  const acquisition = parts[2] as LillomarkaSpecimen["acquisition"];
-  const species = parts.at(-2) as LillomarkaSpecimen["species"];
-  const ageYears = Number(parts.at(-1));
-
-  return {
-    id,
-    acquisition,
-    species,
-    ageYears,
-    plot: parts[3]
-  };
-}
-
-export const LILLOMARKA_SPECIMENS = ids.map(parseSpecimen);
+export const LILLOMARKA_SPECIMENS: LillomarkaSpecimen[] = [
+  {
+    id: "lillomarka_X1004_18_ALSHD",
+    treeId: "lillomarka_X1004_18",
+    acquisition: "ALSHD",
+    species: "pine",
+    ageYears: 69,
+    heightM: 17.47,
+    plot: "X1004"
+  },
+  {
+    id: "lillomarka_X1004_18_MLS",
+    treeId: "lillomarka_X1004_18",
+    acquisition: "MLS",
+    species: "pine",
+    ageYears: 70,
+    heightM: 17.66,
+    plot: "X1004"
+  },
+  {
+    id: "lillomarka_X1010_48_ALSHD",
+    treeId: "lillomarka_X1010_48",
+    acquisition: "ALSHD",
+    species: "spruce",
+    ageYears: 93,
+    heightM: 19.81,
+    plot: "X1010"
+  },
+  {
+    id: "lillomarka_X1010_48_MLS",
+    treeId: "lillomarka_X1010_48",
+    acquisition: "MLS",
+    species: "spruce",
+    ageYears: 94,
+    heightM: 19.82,
+    plot: "X1010"
+  },
+  {
+    id: "lillomarka_X1105_74_ALSHD",
+    treeId: "lillomarka_X1105_74",
+    acquisition: "ALSHD",
+    species: "pine",
+    ageYears: 222,
+    heightM: 17.99,
+    plot: "X1105"
+  },
+  {
+    id: "lillomarka_X1105_74_MLS",
+    treeId: "lillomarka_X1105_74",
+    acquisition: "MLS",
+    species: "pine",
+    ageYears: 223,
+    heightM: 18.21,
+    plot: "X1105"
+  }
+];
 
 export const LILLOMARKA_SPECIMEN_SOURCE =
-  "https://github.com/SingleTree-EU/FORage/blob/main/FOR-age-tree-age-estimation/data/forage/meta_data/train_list.txt";
+  "https://zenodo.org/records/19853987/files/FORage_tree_metadata_train_val.csv?download=1";

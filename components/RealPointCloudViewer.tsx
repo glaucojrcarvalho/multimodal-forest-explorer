@@ -4,10 +4,51 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { parse } from "@loaders.gl/core";
 import { LASLoader } from "@loaders.gl/las";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
-import { LILLOMARKA_SPECIMENS, LILLOMARKA_SPECIMEN_SOURCE } from "../data/lillomarka-specimens";
 import { FOR_AGE } from "../data/for-age";
+
+type ShowcaseSample = {
+  id: string;
+  treeId: string;
+  project: string;
+  year: number;
+  modality: "ALSHD" | "MLS";
+  plotId: string;
+  treeNumber: string;
+  species: "spruce" | "pine";
+  heightM: number;
+  crownDiameterM: number;
+  crownAreaM2: number;
+  ageYears: number;
+  split: string;
+  sourceFile: string;
+  assetUrl: string;
+  sourcePointCount: number;
+  renderedPointCount: number;
+  boundsM: {
+    width: number;
+    depth: number;
+    height: number;
+  };
+};
+
+type ShowcaseManifest = {
+  schemaVersion: number;
+  dataset: string;
+  studyArea: string;
+  doi: string;
+  sourceRecord: string;
+  sourceArchive: string;
+  sourceMetadata: string;
+  license: string;
+  processing: {
+    coordinateTransform: string;
+    sampling: string;
+    script: string;
+  };
+  samples: ShowcaseSample[];
+};
 
 type CloudData = {
   positions: Float32Array;
@@ -17,6 +58,7 @@ type CloudData = {
   depthM: number;
   heightM: number;
   fileName: string;
+  sample?: ShowcaseSample;
   inferred?: {
     dataset: string;
     acquisition?: string;
@@ -72,8 +114,6 @@ function normalizePositions(source: ArrayLike<number>, skip = 1) {
   const width = Math.max(maxX - minX, 0.001);
   const depth = Math.max(maxY - minY, 0.001);
   const height = Math.max(maxZ - minZ, 0.001);
-  const maxSpan = Math.max(width, depth, height);
-  const scale = 8 / maxSpan;
   const centerX = (minX + maxX) / 2;
   const centerY = (minY + maxY) / 2;
 
@@ -87,9 +127,9 @@ function normalizePositions(source: ArrayLike<number>, skip = 1) {
     const z = Number(source[offset + 2]);
     if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) continue;
 
-    positions[cursor++] = (x - centerX) * scale;
-    positions[cursor++] = (z - minZ) * scale;
-    positions[cursor++] = (y - centerY) * scale;
+    positions[cursor++] = x - centerX;
+    positions[cursor++] = z - minZ;
+    positions[cursor++] = y - centerY;
   }
 
   return {
@@ -104,27 +144,112 @@ function PointCloud({ cloud }: { cloud: CloudData }) {
   const geometry = useMemo(() => {
     const value = new THREE.BufferGeometry();
     value.setAttribute("position", new THREE.BufferAttribute(cloud.positions, 3));
+
+    const colors = new Float32Array(cloud.positions.length);
+    const low = new THREE.Color("#345f48");
+    const high = new THREE.Color("#d4f3c8");
+    const color = new THREE.Color();
+    const height = Math.max(cloud.heightM, 0.001);
+
+    for (let i = 0; i < cloud.positions.length; i += 3) {
+      const ratio = THREE.MathUtils.clamp(cloud.positions[i + 1] / height, 0, 1);
+      color.copy(low).lerp(high, ratio);
+      colors[i] = color.r;
+      colors[i + 1] = color.g;
+      colors[i + 2] = color.b;
+    }
+
+    value.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     value.computeBoundingSphere();
     return value;
-  }, [cloud.positions]);
+  }, [cloud]);
 
   return (
     <points geometry={geometry}>
       <pointsMaterial
-        color="#b9e6c5"
-        size={0.025}
+        vertexColors
+        size={0.045}
         sizeAttenuation
         transparent
-        opacity={0.92}
+        opacity={0.94}
       />
     </points>
   );
 }
 
 export function RealPointCloudViewer() {
+  const [manifest, setManifest] = useState<ShowcaseManifest | null>(null);
   const [cloud, setCloud] = useState<CloudData | null>(null);
-  const [status, setStatus] = useState("Select a FOR-age .las or .laz tree point cloud.");
+  const [selectedSampleId, setSelectedSampleId] = useState<string | null>(null);
+  const [status, setStatus] = useState("Loading curated FOR-age showcase…");
   const [busy, setBusy] = useState(false);
+
+  async function loadShowcaseSample(sample: ShowcaseSample) {
+    setBusy(true);
+    setSelectedSampleId(sample.id);
+    setStatus(`Loading real ${sample.modality} point cloud from Lillomarka…`);
+
+    try {
+      const response = await fetch(sample.assetUrl);
+      if (!response.ok) {
+        throw new Error(`sample asset returned HTTP ${response.status}`);
+      }
+
+      const buffer = await response.arrayBuffer();
+      if (buffer.byteLength % 12 !== 0) {
+        throw new Error("invalid point-cloud binary length");
+      }
+
+      const positions = new Float32Array(buffer);
+      setCloud({
+        positions,
+        sourcePointCount: sample.sourcePointCount,
+        renderedPointCount: Math.floor(positions.length / 3),
+        widthM: sample.boundsM.width,
+        depthM: sample.boundsM.depth,
+        heightM: sample.boundsM.height,
+        fileName: sample.sourceFile,
+        sample
+      });
+      setStatus("Real FOR-age geometry loaded from the reproducible Lillomarka showcase subset.");
+    } catch (error) {
+      console.error(error);
+      setCloud(null);
+      setStatus(
+        "The curated sample has not been published yet. You can still open a FOR-age LAS/LAZ file locally below."
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  useEffect(() => {
+    let active = true;
+
+    async function bootstrap() {
+      try {
+        const response = await fetch("/data/for-age/showcase-manifest.json", { cache: "no-store" });
+        if (!response.ok) throw new Error(`manifest returned HTTP ${response.status}`);
+        const data = (await response.json()) as ShowcaseManifest;
+        if (!active || data.samples.length === 0) return;
+
+        setManifest(data);
+        await loadShowcaseSample(data.samples[0]);
+      } catch (error) {
+        console.info("Curated FOR-age showcase is not available yet.", error);
+        if (active) {
+          setStatus(
+            "Curated sample generation is pending. Open a FOR-age LAS/LAZ file locally to inspect real geometry."
+          );
+        }
+      }
+    }
+
+    void bootstrap();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function handleFile(file: File) {
     if (!/\.(las|laz)$/i.test(file.name)) {
@@ -138,6 +263,7 @@ export function RealPointCloudViewer() {
     }
 
     setBusy(true);
+    setSelectedSampleId(null);
     setStatus("Decoding point cloud locally in your browser…");
 
     try {
@@ -182,32 +308,96 @@ export function RealPointCloudViewer() {
     }
   }
 
+  const treeIds = useMemo(
+    () => manifest ? Array.from(new Set(manifest.samples.map((sample) => sample.treeId))) : [],
+    [manifest]
+  );
+
+  const activeSample = cloud?.sample;
+  const cameraDistance = Math.max(18, (cloud?.heightM ?? 18) * 1.15);
+
   return (
     <section className="pointCloudLab" aria-labelledby="pointcloud-title">
       <div className="pointCloudHeader">
         <div>
           <p className="eyebrow">Real point-cloud laboratory</p>
-          <h2 id="pointcloud-title">Inspect an actual FOR-age tree in 3D.</h2>
+          <h2 id="pointcloud-title">Inspect real Lillomarka trees in 3D.</h2>
         </div>
         <p>
-          Download a single-tree LAS/LAZ file from the official FOR-age Zenodo archive,
-          then open it here. Parsing and rendering happen locally in the browser.
+          These browser samples are deterministic downsamplings of individual-tree
+          LAZ files from the public FOR-age dataset. Metres, species, age labels,
+          acquisition modality, and source provenance remain visible.
         </p>
       </div>
+
+      {manifest ? (
+        <div className="showcaseControls">
+          <div>
+            <span className="datasetKicker">Tree</span>
+            <div className="showcaseTreeButtons">
+              {treeIds.map((treeId) => {
+                const sample = manifest.samples.find((item) => item.treeId === treeId);
+                const active = activeSample?.treeId === treeId;
+                return (
+                  <button
+                    key={treeId}
+                    type="button"
+                    className={active ? "sampleButton active" : "sampleButton"}
+                    onClick={() => {
+                      const preferred =
+                        manifest.samples.find(
+                          (item) => item.treeId === treeId && item.modality === (activeSample?.modality ?? "ALSHD")
+                        ) ?? manifest.samples.find((item) => item.treeId === treeId);
+                      if (preferred) void loadShowcaseSample(preferred);
+                    }}
+                  >
+                    {sample?.species === "spruce" ? "Norway spruce" : "Scots pine"} · {sample?.ageYears} y
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div>
+            <span className="datasetKicker">Sensor</span>
+            <div className="showcaseTreeButtons">
+              {(["ALSHD", "MLS"] as const).map((modality) => {
+                const target = manifest.samples.find(
+                  (item) => item.treeId === activeSample?.treeId && item.modality === modality
+                );
+                return (
+                  <button
+                    key={modality}
+                    type="button"
+                    disabled={!target}
+                    className={activeSample?.modality === modality ? "sampleButton active" : "sampleButton"}
+                    onClick={() => target && void loadShowcaseSample(target)}
+                  >
+                    {modality}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <div className="pointCloudWorkspace">
         <div className="pointCloudViewport">
           {cloud ? (
-            <Canvas camera={{ position: [7, 5, 8], fov: 42 }} dpr={[1, 1.6]}>
+            <Canvas
+              camera={{ position: [cameraDistance * 0.75, cameraDistance * 0.55, cameraDistance * 0.75], fov: 42 }}
+              dpr={[1, 1.6]}
+            >
               <color attach="background" args={["#0d1712"]} />
-              <fog attach="fog" args={["#0d1712", 10, 28]} />
-              <gridHelper args={[18, 18, "#284d38", "#17281e"]} />
+              <fog attach="fog" args={["#0d1712", cameraDistance * 0.9, cameraDistance * 2.8]} />
+              <gridHelper args={[40, 40, "#284d38", "#17281e"]} />
               <PointCloud cloud={cloud} />
               <OrbitControls
                 makeDefault
+                target={[0, cloud.heightM * 0.45, 0]}
                 enableDamping
                 minDistance={2}
-                maxDistance={24}
+                maxDistance={60}
               />
             </Canvas>
           ) : (
@@ -215,18 +405,58 @@ export function RealPointCloudViewer() {
               <div className="cloudAxis" aria-hidden="true">
                 <span>X</span><span>Y</span><span>Z</span>
               </div>
-              <strong>No geometry fabricated.</strong>
+              <strong>Waiting for real geometry.</strong>
               <p>
-                The viewport remains empty until a real LAS/LAZ file is selected.
+                No procedural tree is substituted when the research sample is unavailable.
               </p>
             </div>
           )}
-          <div className="pointCloudStatus">{busy ? "Processing" : cloud ? "Real data" : "Awaiting file"}</div>
+          <div className="pointCloudStatus">
+            {busy ? "Loading" : cloud?.sample ? "FOR-age real data" : cloud ? "Local real data" : "Awaiting data"}
+          </div>
+          {activeSample ? (
+            <div className="pointCloudProvenance">
+              Lillomarka · {activeSample.modality} · {activeSample.renderedPointCount.toLocaleString("en-US")} displayed points
+            </div>
+          ) : null}
         </div>
 
         <aside className="pointCloudSidebar">
+          {activeSample ? (
+            <div className="cloudFacts">
+              <span className="datasetKicker">Selected real tree</span>
+              <strong>{activeSample.treeId}</strong>
+              <dl>
+                <div><dt>Species</dt><dd>{activeSample.species === "spruce" ? "Picea abies" : "Pinus sylvestris"}</dd></div>
+                <div><dt>Age label</dt><dd>{activeSample.ageYears} years</dd></div>
+                <div><dt>Acquisition</dt><dd>{activeSample.modality}</dd></div>
+                <div><dt>Measured height</dt><dd>{activeSample.heightM.toFixed(2)} m</dd></div>
+                <div><dt>Crown diameter</dt><dd>{activeSample.crownDiameterM.toFixed(2)} m</dd></div>
+                <div><dt>Crown area</dt><dd>{activeSample.crownAreaM2.toFixed(2)} m²</dd></div>
+                <div><dt>Source points</dt><dd>{activeSample.sourcePointCount.toLocaleString("en-US")}</dd></div>
+                <div><dt>Displayed</dt><dd>{activeSample.renderedPointCount.toLocaleString("en-US")}</dd></div>
+                <div><dt>Split</dt><dd>{activeSample.split}</dd></div>
+              </dl>
+              <a href={manifest?.sourceRecord ?? FOR_AGE.zenodoUrl} target="_blank" rel="noreferrer">
+                FOR-age DOI record ↗
+              </a>
+            </div>
+          ) : cloud ? (
+            <div className="cloudFacts">
+              <span className="datasetKicker">Loaded local specimen</span>
+              <strong>{cloud.fileName}</strong>
+              <dl>
+                <div><dt>Source points</dt><dd>{cloud.sourcePointCount.toLocaleString("en-US")}</dd></div>
+                <div><dt>Rendered</dt><dd>{cloud.renderedPointCount.toLocaleString("en-US")}</dd></div>
+                <div><dt>Height extent</dt><dd>{cloud.heightM.toFixed(2)} m</dd></div>
+                <div><dt>Width extent</dt><dd>{cloud.widthM.toFixed(2)} m</dd></div>
+                <div><dt>Depth extent</dt><dd>{cloud.depthM.toFixed(2)} m</dd></div>
+              </dl>
+            </div>
+          ) : null}
+
           <div className="uploadCard">
-            <span className="datasetKicker">Local dataset file</span>
+            <span className="datasetKicker">Inspect another source file</span>
             <label className="fileButton">
               <input
                 type="file"
@@ -237,53 +467,28 @@ export function RealPointCloudViewer() {
                   if (file) void handleFile(file);
                 }}
               />
-              {busy ? "Decoding…" : "Open LAS / LAZ"}
+              {busy ? "Processing…" : "Open LAS / LAZ locally"}
             </label>
             <p>{status}</p>
             <a href={FOR_AGE.zenodoUrl} target="_blank" rel="noreferrer">
-              Download FOR-age on Zenodo ↗
+              Official FOR-age archive ↗
             </a>
           </div>
 
-          {cloud ? (
-            <div className="cloudFacts">
-              <span className="datasetKicker">Loaded specimen</span>
-              <strong>{cloud.fileName}</strong>
-              <dl>
-                <div><dt>Source points</dt><dd>{cloud.sourcePointCount.toLocaleString("en-US")}</dd></div>
-                <div><dt>Rendered</dt><dd>{cloud.renderedPointCount.toLocaleString("en-US")}</dd></div>
-                <div><dt>Height extent</dt><dd>{cloud.heightM.toFixed(2)} m</dd></div>
-                <div><dt>Width extent</dt><dd>{cloud.widthM.toFixed(2)} m</dd></div>
-                <div><dt>Depth extent</dt><dd>{cloud.depthM.toFixed(2)} m</dd></div>
-                <div><dt>Dataset</dt><dd>{cloud.inferred?.dataset ?? "Unknown"}</dd></div>
-                {cloud.inferred?.acquisition ? <div><dt>Sensor</dt><dd>{cloud.inferred.acquisition}</dd></div> : null}
-                {cloud.inferred?.species ? <div><dt>Species</dt><dd>{cloud.inferred.species}</dd></div> : null}
-                {cloud.inferred?.ageYears !== undefined ? <div><dt>Age label</dt><dd>{cloud.inferred.ageYears} y</dd></div> : null}
-              </dl>
-            </div>
-          ) : (
+          {manifest ? (
             <div className="specimenReferences">
-              <span className="datasetKicker">Real Lillomarka examples</span>
-              <p>Identifiers below come from the official FOR-age training split.</p>
-              <ul>
-                {LILLOMARKA_SPECIMENS.slice(0, 4).map((item) => (
-                  <li key={item.id}>
-                    <span>{item.species} · {item.ageYears} y</span>
-                    <code>{item.id}</code>
-                  </li>
-                ))}
-              </ul>
-              <a href={LILLOMARKA_SPECIMEN_SOURCE} target="_blank" rel="noreferrer">
-                Source list ↗
-              </a>
+              <span className="datasetKicker">Reproducibility</span>
+              <p>{manifest.processing.sampling}</p>
+              <code>{manifest.processing.script}</code>
+              <p>{manifest.license}</p>
             </div>
-          )}
+          ) : null}
         </aside>
       </div>
 
       <p className="pointCloudNote">
-        Privacy/data handling: the selected file is decoded client-side and is not sent to this application.
-        Rendering may downsample very dense clouds for interaction; the source file remains unchanged.
+        Showcase assets are derived from the public FOR-age dataset and remain traceable to DOI {FOR_AGE.doi}.
+        The binary files contain only downsampled XYZ coordinates for browser rendering; raw LAZ files are not bundled with the application.
       </p>
     </section>
   );
