@@ -51,3 +51,24 @@ A more detailed source/provenance log will live under `docs/`.
 ## License
 
 Source code licensing will be finalized before the repository is made public. Third-party datasets, imagery, models, publications, and assets remain subject to their original licenses and terms.
+
+
+## Current deployment status
+
+The application is prepared for a Vercel preview deployment. The runtime currently requires no secrets or private APIs.
+
+Before production:
+
+1. import the repository into Vercel;
+2. set `NEXT_PUBLIC_SITE_URL` to the canonical deployment URL;
+3. verify the preview deployment;
+4. attach the final custom domain and update the canonical URL.
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) and [docs/DEPLOYMENT_READINESS.md](docs/DEPLOYMENT_READINESS.md).
+
+## Local validation
+
+```bash
+npm install
+npm run check
+```
