@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   ["Explorer", "#explorer"],
@@ -11,6 +11,15 @@ const links = [
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <header className="siteNav">
@@ -42,8 +51,8 @@ export function SiteNav() {
 
       <div
         id="mobile-navigation"
-        className={open ? "mobileNav open" : "mobileNav"}
-        aria-hidden={!open}
+        className="mobileNav open"
+        hidden={!open}
       >
         <div className="shell">
           {links.map(([label, href]) => (
