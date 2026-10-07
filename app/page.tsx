@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
-const ForestScene = dynamic(
-  () => import("../components/ForestScene").then((module) => module.ForestScene),
+const ForestExplorer = dynamic(
+  () => import("../components/ForestExplorer").then((module) => module.ForestExplorer),
   { ssr: false }
 );
 
@@ -78,21 +78,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="sceneWrap" aria-label="Interactive synthetic 3D forest">
-            <ForestScene />
-            <div className="sceneBadge">
-              <span className="pulse" />
-              Interactive 3D scene
-            </div>
-            <div className="sceneMetric metricA">
-              <strong>90</strong>
-              <span>synthetic trees</span>
-            </div>
-            <div className="sceneMetric metricB">
-              <strong>3</strong>
-              <span>illustrative species</span>
-            </div>
-          </div>
+          <ForestExplorer />
         </div>
       </section>
 
