@@ -11,6 +11,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out released source
+        uses: actions/checkout@v4
+
+      - name: Validate real-data release bundle
+        run: python scripts/check_real_data_release.py
+
       - name: Trigger Vercel production deployment
         env:
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
@@ -20,4 +26,9 @@ jobs:
             exit 1
           fi
 
-          curl             --fail-with-body             --silent             --show-error             --request POST             "$VERCEL_DEPLOY_HOOK_URL"
+          curl \
+            --fail-with-body \
+            --silent \
+            --show-error \
+            --request POST \
+            "$VERCEL_DEPLOY_HOOK_URL"
