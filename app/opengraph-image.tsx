@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { SITE } from "../lib/site";
 
 export const runtime = "edge";
-export const alt = "Forest Intelligence Explorer — multimodal AI for forest understanding";
+export const alt = "Forest Intelligence Explorer — real forest point clouds and published AI research";
 export const size = {
   width: 1200,
   height: 630
@@ -55,13 +55,13 @@ export default function Image() {
             From a forest to individual trees.
           </div>
           <div style={{ marginTop: "28px", fontSize: "26px", color: "#b9cbbb" }}>
-            Multimodal AI · RGB · LiDAR · satellite · field observations
+            Real FOR-age point clouds · tree-level AI research · reproducible processing
           </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "18px", color: "#9fb5a5" }}>
           <span>Independent research prototype</span>
-          <span>Synthetic-by-default · public-source discipline</span>
+          <span>Public sources · traceable provenance</span>
         </div>
       </div>
     ),
