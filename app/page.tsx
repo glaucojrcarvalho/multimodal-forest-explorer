@@ -88,9 +88,9 @@ export default function Home() {
             <h2>Different sensors describe different parts of the same forest.</h2>
           </div>
           <p>
-            These modalities are now framed as real data sources and published research tasks.
-            The next viewer iteration will render actual point clouds and Norwegian elevation
-            context instead of procedural tree geometry.
+            These modalities are framed as real data sources and published research tasks.
+            The Lillomarka laboratory above uses source-derived individual-tree point clouds;
+            terrain and broader canopy context are the next layer.
           </p>
         </div>
 
@@ -178,8 +178,8 @@ export default function Home() {
           </div>
           <p>
             The repository uses public research pages and dataset metadata with explicit
-            citations. Real point-cloud or elevation files will only be deployed after
-            provenance, attribution, and redistribution obligations are documented.
+            citations. Browser point-cloud samples are reproducible derivatives of FOR-age;
+            every external layer must document provenance, attribution, and redistribution obligations.
           </p>
           <a href="https://github.com/glaucojrcarvalho/multimodal-forest-explorer">
             View source policy ↗
