@@ -26,6 +26,15 @@ const nextConfig = {
       {
         source: "/(.*)",
         headers: securityHeaders
+      },
+      {
+        source: "/data/for-age/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800"
+          }
+        ]
       }
     ];
   }
