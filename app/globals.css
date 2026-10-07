@@ -1772,3 +1772,776 @@ button:focus-visible {
     padding-bottom: 24px;
   }
 }
+
+
+/* Pre-share UI/UX hardening */
+
+html {
+  scroll-padding-top: 84px;
+}
+
+#explorer,
+#research-tasks,
+#modalities,
+#research,
+#reproducibility {
+  scroll-margin-top: 84px;
+}
+
+.siteNav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  border-bottom: 1px solid rgba(23, 33, 27, 0.08);
+  background: rgba(247, 246, 241, 0.9);
+  backdrop-filter: blur(16px);
+}
+
+.siteNav .nav {
+  height: 72px;
+}
+
+.menuButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menuButton span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 5px 0;
+  background: var(--ink);
+}
+
+.mobileNav {
+  display: none;
+}
+
+.primaryButton,
+.fileButton,
+.sampleButton,
+.viewerToolbar button,
+.menuButton {
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.primaryButton:hover,
+.fileButton:hover,
+.sampleButton:hover,
+.viewerToolbar button:hover {
+  transform: translateY(-1px);
+}
+
+.datasetKicker,
+.datasetMetrics span,
+.cardTop,
+.researchCardTop,
+.taskCardTop,
+.evidenceGrid article > span,
+.evidenceSource > span,
+.trustLabel,
+.roadmapIndex,
+.reproMeta span,
+.reproIntro small {
+  color: #556259;
+  font-size: 10px;
+}
+
+.datasetMetrics strong {
+  font-size: 25px;
+}
+
+.compactDatasetHeader {
+  grid-template-columns: 1.1fr 0.9fr;
+  padding-bottom: 22px;
+}
+
+.datasetQuickFact {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.datasetQuickFact strong {
+  color: var(--ink);
+  font-weight: 600;
+  text-align: right;
+}
+
+.datasetDetails {
+  margin-top: 14px;
+}
+
+.datasetDetails summary,
+.advancedTools summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--forest);
+  font-size: 11px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.datasetDetails summary::-webkit-details-marker,
+.advancedTools summary::-webkit-details-marker {
+  display: none;
+}
+
+.datasetDetails summary::after,
+.advancedTools summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.datasetDetails[open] summary::after,
+.advancedTools[open] summary::after {
+  content: "–";
+}
+
+.datasetDetails .datasetBody {
+  padding-top: 10px;
+}
+
+.datasetActions {
+  padding-top: 4px;
+}
+
+.labLoading {
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  border-radius: 30px;
+  color: #dce7df;
+  background: #122119;
+}
+
+.labLoading strong,
+.pointCloudLoading strong {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.labLoading p,
+.pointCloudLoading p {
+  margin: 6px 0 0;
+  color: #9eb0a5;
+  font-size: 11px;
+}
+
+.labLoadingPulse,
+.pointCloudLoadingPulse {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #cfe5d5;
+  box-shadow: 0 0 0 8px rgba(207,229,213,0.1);
+  animation: labPulse 1.35s ease-in-out infinite;
+}
+
+@keyframes labPulse {
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.viewerToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.viewerToolbar > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.viewerToolbar button {
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  color: #b8c9be;
+  background: rgba(255,255,255,0.035);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.viewerToolbar button[aria-pressed="true"] {
+  color: #102017;
+  border-color: #cfe5d5;
+  background: #cfe5d5;
+}
+
+.showcaseControls {
+  align-items: end;
+}
+
+.sampleButton {
+  min-height: 44px;
+  padding: 9px 13px;
+  font-size: 10px;
+}
+
+.pointCloudLoading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 32px;
+  text-align: center;
+}
+
+.cloudLoadingOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-content: center;
+  color: #d9e6dd;
+  background: rgba(13,23,18,0.58);
+  backdrop-filter: blur(3px);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.heightLegend {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 3;
+  width: 128px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  color: #c9d8cf;
+  background: rgba(13,23,18,0.72);
+  backdrop-filter: blur(10px);
+  font-size: 9px;
+}
+
+.heightLegend > span {
+  display: block;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.heightLegendScale {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #345f48, #d4f3c8);
+}
+
+.heightLegendValues {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  color: #91a69a;
+}
+
+.pointCloudHint {
+  top: 16px;
+  right: 16px;
+  bottom: auto;
+  left: auto;
+  color: #a8bbb0;
+  font-size: 9px;
+}
+
+.pointCloudProvenance {
+  right: 16px;
+  bottom: 16px;
+  max-width: calc(100% - 176px);
+}
+
+.sourceId {
+  display: block;
+  margin-top: 6px;
+  color: #8fa69a;
+  font-size: 9px;
+  overflow-wrap: anywhere;
+}
+
+.cloudFacts dl > div {
+  font-size: 10px;
+}
+
+.advancedTools {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.025);
+}
+
+.advancedTools summary {
+  padding: 0 18px;
+  color: #c9ddd0;
+}
+
+.advancedTools .uploadCard {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0 0 18px 18px;
+}
+
+.referenceBadge {
+  width: fit-content;
+  margin-top: 18px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #5c6860;
+  background: rgba(255,255,255,0.6);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.taskCard h3 {
+  margin-top: 28px;
+}
+
+.roadmapHeader {
+  align-items: start;
+}
+
+.roadmapRail {
+  margin-top: 42px;
+  border-top: 1px solid var(--line);
+}
+
+.roadmapItem {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 22px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.roadmapIndex {
+  padding-top: 4px;
+  letter-spacing: 0.12em;
+}
+
+.roadmapCopy {
+  display: grid;
+  grid-template-columns: 180px minmax(180px, 0.7fr) minmax(240px, 1fr);
+  gap: 18px 32px;
+  align-items: start;
+}
+
+.roadmapTopline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--forest);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.roadmapCopy h3 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.roadmapCopy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.compactResearchGrid {
+  gap: 10px;
+  margin-top: 36px;
+}
+
+.compactResearchGrid .researchCard {
+  min-height: 0;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.32);
+}
+
+.compactResearchGrid .researchCard h3 {
+  margin: 24px 0 10px;
+  font-size: 22px;
+}
+
+.compactResearchGrid .researchCard > p {
+  font-size: 11px;
+}
+
+.compactResearchGrid .researchThemes {
+  margin: 8px 0;
+}
+
+.compactResearchGrid .researchCard .usageNote {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.reproPanel {
+  padding: 48px;
+  border-radius: 30px;
+  color: #edf4ef;
+  background: #1d3127;
+}
+
+.reproIntro {
+  display: grid;
+  grid-template-columns: 1fr 0.75fr;
+  gap: 60px;
+  align-items: end;
+}
+
+.reproIntro h2 {
+  margin: 0;
+  max-width: 680px;
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 4vw, 58px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.reproIntro > p {
+  margin: 0;
+  color: #afc1b5;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.lineageFlow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 42px 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  list-style: none;
+}
+
+.lineageFlow li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  min-height: 220px;
+  padding: 22px 18px 22px 0;
+  border-right: 1px solid rgba(255,255,255,0.14);
+}
+
+.lineageFlow li:last-child {
+  border-right: 0;
+}
+
+.lineageFlow li > span,
+.lineageFlow small,
+.reproMeta span {
+  color: #91ab9a;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.lineageFlow strong {
+  display: block;
+  margin-top: 28px;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.lineageFlow p {
+  margin: 10px 0 0;
+  color: #aebfb4;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.reproMeta {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.25fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.reproMeta > div {
+  min-width: 0;
+}
+
+.reproMeta strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.reproLinks {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.reproLinks a {
+  color: #d5e4da;
+  font-size: 10px;
+  border-bottom: 1px solid rgba(213,228,218,0.35);
+}
+
+@media (max-width: 900px) {
+  .siteNav .navLinks {
+    display: none;
+  }
+
+  .menuButton {
+    display: block;
+  }
+
+  .mobileNav {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    transition: max-height 180ms ease, border-color 180ms ease;
+  }
+
+  .mobileNav.open {
+    max-height: 280px;
+    border-top-color: var(--line);
+  }
+
+  .mobileNav .shell {
+    display: grid;
+    padding-top: 8px;
+    padding-bottom: 12px;
+  }
+
+  .mobileNav a {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .compactDatasetHeader,
+  .reproIntro,
+  .reproMeta {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmapCopy {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .roadmapCopy p {
+    grid-column: 1 / -1;
+  }
+
+  .lineageFlow {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lineageFlow li:nth-child(2) {
+    border-right: 0;
+  }
+
+  .lineageFlow li:nth-child(-n+2) {
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }
+
+  .reproLinks {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  html {
+    scroll-padding-top: 72px;
+  }
+
+  .siteNav .nav {
+    height: 64px;
+  }
+
+  .brand {
+    font-size: 12px;
+  }
+
+  .brandMark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .heroGrid {
+    gap: 34px;
+  }
+
+  .heroActions {
+    gap: 16px;
+  }
+
+  .primaryButton {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .datasetPanel {
+    padding: 16px;
+  }
+
+  .datasetTopline {
+    gap: 5px;
+  }
+
+  .datasetMetrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .datasetMetrics > div {
+    min-height: 92px;
+    padding: 14px 12px;
+  }
+
+  .datasetQuickFact {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .datasetQuickFact strong {
+    text-align: left;
+  }
+
+  .viewerToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .viewerToolbar > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .viewerToolbar button {
+    min-width: 0;
+    padding: 0 10px;
+  }
+
+  .showcaseTreeButtons {
+    gap: 8px;
+  }
+
+  .sampleButton {
+    flex: 1 1 auto;
+  }
+
+  .pointCloudViewport {
+    min-height: 440px;
+  }
+
+  .pointCloudHint {
+    top: 56px;
+    right: 12px;
+    bottom: auto;
+    left: 12px;
+    text-align: center;
+  }
+
+  .heightLegend {
+    left: 12px;
+    bottom: 12px;
+    width: 116px;
+  }
+
+  .pointCloudProvenance {
+    right: 12px;
+    bottom: 12px;
+    max-width: calc(100% - 148px);
+    font-size: 8px;
+  }
+
+  .roadmapItem {
+    grid-template-columns: 34px 1fr;
+    gap: 12px;
+  }
+
+  .roadmapCopy {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .roadmapCopy p {
+    grid-column: auto;
+  }
+
+  .lineageFlow {
+    grid-template-columns: 1fr;
+  }
+
+  .lineageFlow li,
+  .lineageFlow li:nth-child(2) {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }
+
+  .lineageFlow li:last-child {
+    border-bottom: 0;
+  }
+
+  .reproPanel {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .reproIntro {
+    gap: 22px;
+  }
+
+  .reproIntro h2 {
+    font-size: 38px;
+  }
+
+  .labLoading {
+    min-height: 430px;
+    border-radius: 22px;
+  }
+
+  .researchContextHeader h2 {
+    font-size: 38px;
+  }
+}
