@@ -2,52 +2,53 @@ import { SiteNav } from "../components/SiteNav";
 import { SkipLink } from "../components/SkipLink";
 import { ResearchCaseCard } from "../components/ResearchCaseCard";
 import { PUBLIC_RESEARCH_PROJECTS } from "../data/research-projects";
-import { TrustPanel } from "../components/TrustPanel";
 import { SiteFooter } from "../components/SiteFooter";
 import { ForAgeDatasetPanel } from "../components/ForAgeDatasetPanel";
-import { RealPointCloudViewer } from "../components/RealPointCloudViewer";
+import { LazyPointCloudViewer } from "../components/LazyPointCloudViewer";
 import { PrototypeEvidencePanel } from "../components/PrototypeEvidencePanel";
 import { ResearchTaskPanel } from "../components/ResearchTaskPanel";
+import { ReproducibilityPanel } from "../components/ReproducibilityPanel";
+import { FOR_AGE } from "../data/for-age";
 
 const modalities = [
   {
     id: "01",
-    label: "RGB",
-    status: "Planned context",
-    title: "See the canopy",
-    copy: "High-resolution imagery provides visible structure, crown boundaries, seasonal cues, and contextual information."
+    label: "LiDAR",
+    status: "Live",
+    title: "Individual-tree 3D",
+    copy: "Real FOR-age point clouds with tree-level geometry, labels, sensor context, and provenance."
   },
   {
     id: "02",
-    label: "LiDAR",
-    status: "Live now",
-    title: "Measure in 3D",
-    copy: "Point clouds expose vertical structure and support tree-level geometry such as height, crown form, and spatial arrangement."
+    label: "RGB",
+    status: "Planned",
+    title: "Canopy imagery",
+    copy: "High-resolution imagery for crown boundaries, seasonal cues, and visual context."
   },
   {
     id: "03",
     label: "Satellite",
-    status: "Planned context",
-    title: "Scale across landscapes",
-    copy: "Repeated Earth observations add broad spatial coverage and temporal context beyond a single field campaign."
+    status: "Planned",
+    title: "Landscape scale",
+    copy: "Repeated Earth observations for broader spatial and temporal context."
   },
   {
     id: "04",
     label: "Field",
-    status: "Planned context",
-    title: "Ground the models",
-    copy: "Field observations connect remote measurements with species, ecology, validation, and biodiversity interpretation."
+    status: "Planned",
+    title: "Ground reference",
+    copy: "Field observations for ecology, validation, and interpretation."
   }
-];
+] as const;
 
 export default function Home() {
   return (
     <main id="main-content">
       <SkipLink />
-      <section className="hero">
-        <SiteNav />
+      <SiteNav />
 
-        <div className="shell heroGrid" id="top">
+      <section className="hero" id="top">
+        <div className="shell heroGrid">
           <div className="heroCopy">
             <p className="eyebrow">Independent research prototype · 2026</p>
             <h1>
@@ -60,20 +61,15 @@ export default function Home() {
               tree-level analysis.
             </p>
             <div className="heroActions">
-              <a className="primaryButton" href="#dataset">
-                Explore the real dataset
+              <a className="primaryButton" href="#explorer">
+                Inspect a real tree in 3D
               </a>
-              <a
-                className="textLink"
-                href="https://www.nibio.no/en/projects/sfi-smartforest-bringing-industry-4.0-to-the-norwegian-forest-sector"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Public research inspiration ↗
+              <a className="textLink" href={FOR_AGE.zenodoUrl} target="_blank" rel="noreferrer">
+                View FOR-age source ↗
               </a>
             </div>
             <div className="heroFootnote">
-              Real FOR-age data · traceable derived samples · public research sources
+              Real FOR-age data · traceable derived samples · no invented model outputs
             </div>
           </div>
 
@@ -83,98 +79,61 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section shell">
-        <RealPointCloudViewer />
+      <section className="section shell explorerSection" id="explorer">
+        <LazyPointCloudViewer />
       </section>
 
       <section className="section shell compactSection">
         <PrototypeEvidencePanel />
       </section>
 
-      <section className="section shell compactSection">
+      <section className="section shell compactSection" id="research-tasks">
         <ResearchTaskPanel />
       </section>
 
       <section className="section shell compactSection" id="modalities">
-        <div className="sectionHeader">
+        <div className="sectionHeader roadmapHeader">
           <div>
             <p className="eyebrow">Multimodal roadmap</p>
-            <h2>One real layer now, additional context without pretending it already exists.</h2>
+            <h2>What is implemented now, and what comes next.</h2>
           </div>
           <p>
-            LiDAR is implemented with real FOR-age geometry. RGB, satellite, and field observations
-            remain explicit roadmap layers until equally traceable public data is integrated.
+            Only LiDAR is implemented in this release. Additional sensing layers stay
+            explicitly planned until equally traceable public data is integrated.
           </p>
         </div>
 
-        <div className="modalityGrid">
+        <div className="roadmapRail" role="list" aria-label="Multimodal implementation roadmap">
           {modalities.map((item) => (
-            <article className="modalityCard" key={item.id}>
-              <div className="cardTop">
-                <span>{item.id} · {item.label}</span>
-                <span className={item.status === "Live now" ? "layerStatus live" : "layerStatus"}>
-                  {item.status}
-                </span>
+            <article className="roadmapItem" key={item.id} role="listitem">
+              <div className="roadmapIndex">{item.id}</div>
+              <div className="roadmapCopy">
+                <div className="roadmapTopline">
+                  <span>{item.label}</span>
+                  <span className={item.status === "Live" ? "layerStatus live" : "layerStatus"}>
+                    {item.status}
+                  </span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
               </div>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="methodSection" id="method">
-        <div className="shell methodGrid">
-          <div>
-            <p className="eyebrow light">Research-to-interface method</p>
-            <h2>Make the reasoning visible, not only the final map.</h2>
-          </div>
-          <ol className="methodList">
-            <li>
-              <span>01</span>
-              <div>
-                <strong>Observe</strong>
-                <p>Represent each public sensing modality separately.</p>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <strong>Align</strong>
-                <p>Bring spatial and semantic observations into a shared view.</p>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <strong>Model</strong>
-                <p>Show candidate AI outputs such as tree delineation and attributes.</p>
-              </div>
-            </li>
-            <li>
-              <span>04</span>
-              <div>
-                <strong>Evaluate</strong>
-                <p>Keep uncertainty, provenance, and validation visible to the user.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
       <section className="section shell" id="research">
-        <div className="sectionHeader">
+        <div className="sectionHeader researchContextHeader">
           <div>
-            <p className="eyebrow">Public research cases</p>
-            <h2>Research themes translated into an interactive product concept.</h2>
+            <p className="eyebrow">Research context</p>
+            <h2>Public work that frames the problem space.</h2>
           </div>
           <p>
-            These case studies are based only on publicly available NIBIO pages.
-            They provide conceptual context; this site is an independent prototype
-            and does not reproduce internal software, unpublished methods, or restricted data.
+            These references provide context for the prototype. They are not presented
+            as work produced by this project, and no institutional affiliation is implied.
           </p>
         </div>
-        <div className="researchGrid">
+        <div className="researchGrid compactResearchGrid">
           {PUBLIC_RESEARCH_PROJECTS.map((project) => (
             <ResearchCaseCard key={project.id} project={project} />
           ))}
@@ -182,25 +141,9 @@ export default function Home() {
       </section>
 
       <section className="section shell">
-        <TrustPanel />
+        <ReproducibilityPanel />
       </section>
 
-      <section className="section shell" id="sources">
-        <div className="sourcePanel">
-          <div>
-            <p className="eyebrow">Public-source discipline</p>
-            <h2>Built to be safe to publish.</h2>
-          </div>
-          <p>
-            The repository uses public research pages and dataset metadata with explicit
-            citations. Browser point-cloud samples are reproducible derivatives of FOR-age;
-            every external layer must document provenance, attribution, and redistribution obligations.
-          </p>
-          <a href="https://zenodo.org/records/19853987" target="_blank" rel="noreferrer">
-            View FOR-age source record ↗
-          </a>
-        </div>
-      </section>
       <SiteFooter />
     </main>
   );
