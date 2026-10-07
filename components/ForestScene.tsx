@@ -4,31 +4,28 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import type { ModalityId } from "../lib/types/forest";
+import type { ModalityId, TreeRecord } from "../lib/types/forest";
+import { generateSyntheticForest } from "../lib/synthetic/forest";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { RgbLayer } from "./layers/RgbLayer";
 import { LidarLayer } from "./layers/LidarLayer";
 import { SatelliteLayer } from "./layers/SatelliteLayer";
 import { FieldObservationLayer } from "./layers/FieldObservationLayer";
 import { AiOutputLayer } from "./layers/AiOutputLayer";
 
-type TreeDatum = {
-  x: number;
-  z: number;
-  height: number;
-  crown: number;
-  species: "spruce" | "pine" | "birch";
-};
-
-function seeded(index: number, salt: number) {
-  const value = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453;
-  return value - Math.floor(value);
-}
-
-function Tree({ datum, index }: { datum: TreeDatum; index: number }) {
+function Tree({
+  datum,
+  index,
+  animate
+}: {
+  datum: TreeRecord;
+  index: number;
+  animate: boolean;
+}) {
   const group = useRef<THREE.Group>(null);
 
   useFrame(({ clock }) => {
-    if (!group.current) return;
+    if (!group.current || !animate) return;
     group.current.rotation.z =
       Math.sin(clock.elapsedTime * 0.25 + index) * 0.006;
   });
@@ -42,13 +39,13 @@ function Tree({ datum, index }: { datum: TreeDatum; index: number }) {
 
   return (
     <group ref={group} position={[datum.x, 0, datum.z]}>
-      <mesh position={[0, datum.height * 0.32, 0]} castShadow>
-        <cylinderGeometry args={[0.08, 0.13, datum.height * 0.64, 8]} />
+      <mesh position={[0, datum.heightM * 0.32, 0]} castShadow>
+        <cylinderGeometry args={[0.08, 0.13, datum.heightM * 0.64, 8]} />
         <meshStandardMaterial color="#765b43" roughness={0.95} />
       </mesh>
-      <mesh position={[0, datum.height * 0.77, 0]} castShadow>
+      <mesh position={[0, datum.heightM * 0.77, 0]} castShadow>
         <coneGeometry
-          args={[datum.crown, datum.height * 0.62, 10, 3]}
+          args={[datum.crownRadiusM, datum.heightM * 0.62, 10, 3]}
         />
         <meshStandardMaterial color={crownColor} roughness={0.9} />
       </mesh>
@@ -56,29 +53,8 @@ function Tree({ datum, index }: { datum: TreeDatum; index: number }) {
   );
 }
 
-function Forest() {
-  const trees = useMemo<TreeDatum[]>(
-    () =>
-      Array.from({ length: 90 }, (_, index) => {
-        const angle = seeded(index, 1) * Math.PI * 2;
-        const radius = 2.5 + Math.sqrt(seeded(index, 2)) * 18;
-        const speciesRoll = seeded(index, 3);
-
-        return {
-          x: Math.cos(angle) * radius,
-          z: Math.sin(angle) * radius,
-          height: 2.6 + seeded(index, 4) * 4.4,
-          crown: 0.7 + seeded(index, 5) * 0.85,
-          species:
-            speciesRoll > 0.84
-              ? "birch"
-              : speciesRoll > 0.47
-                ? "pine"
-                : "spruce"
-        };
-      }),
-    []
-  );
+function Forest({ animate }: { animate: boolean }) {
+  const trees = useMemo(() => generateSyntheticForest(90), []);
 
   return (
     <>
@@ -87,13 +63,19 @@ function Forest() {
         <meshStandardMaterial color="#23362d" roughness={1} />
       </mesh>
       {trees.map((tree, index) => (
-        <Tree key={index} datum={tree} index={index} />
+        <Tree key={tree.id} datum={tree} index={index} animate={animate} />
       ))}
     </>
   );
 }
 
-export function ForestScene({ activeModality = "rgb" }: { activeModality?: ModalityId }) {
+export function ForestScene({
+  activeModality = "rgb"
+}: {
+  activeModality?: ModalityId;
+}) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <Canvas
       shadows
@@ -110,7 +92,7 @@ export function ForestScene({ activeModality = "rgb" }: { activeModality?: Modal
         castShadow
         shadow-mapSize={[1024, 1024]}
       />
-      <Forest />
+      <Forest animate={!prefersReducedMotion} />
       <RgbLayer visible={activeModality === "rgb"} />
       <LidarLayer visible={activeModality === "lidar"} />
       <SatelliteLayer visible={activeModality === "satellite"} />
@@ -122,7 +104,7 @@ export function ForestScene({ activeModality = "rgb" }: { activeModality?: Modal
         maxDistance={28}
         minPolarAngle={Math.PI / 4.7}
         maxPolarAngle={Math.PI / 2.25}
-        autoRotate
+        autoRotate={!prefersReducedMotion}
         autoRotateSpeed={0.28}
       />
       <Environment preset="forest" />
