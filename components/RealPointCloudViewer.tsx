@@ -180,13 +180,11 @@ function PointCloud({ cloud }: { cloud: CloudData }) {
 export function RealPointCloudViewer() {
   const [manifest, setManifest] = useState<ShowcaseManifest | null>(null);
   const [cloud, setCloud] = useState<CloudData | null>(null);
-  const [selectedSampleId, setSelectedSampleId] = useState<string | null>(null);
   const [status, setStatus] = useState("Loading curated FOR-age showcase…");
   const [busy, setBusy] = useState(false);
 
   async function loadShowcaseSample(sample: ShowcaseSample) {
     setBusy(true);
-    setSelectedSampleId(sample.id);
     setStatus(`Loading real ${sample.modality} point cloud from Lillomarka…`);
 
     try {
@@ -263,7 +261,6 @@ export function RealPointCloudViewer() {
     }
 
     setBusy(true);
-    setSelectedSampleId(null);
     setStatus("Decoding point cloud locally in your browser…");
 
     try {
@@ -317,7 +314,7 @@ export function RealPointCloudViewer() {
   const cameraDistance = Math.max(18, (cloud?.heightM ?? 18) * 1.15);
 
   return (
-    <section className="pointCloudLab" aria-labelledby="pointcloud-title">
+    <section className="pointCloudLab" aria-labelledby="pointcloud-title" aria-busy={busy}>
       <div className="pointCloudHeader">
         <div>
           <p className="eyebrow">Real point-cloud laboratory</p>
@@ -474,7 +471,7 @@ export function RealPointCloudViewer() {
               />
               {busy ? "Processing…" : "Open LAS / LAZ locally"}
             </label>
-            <p>{status}</p>
+            <p role="status" aria-live="polite">{status}</p>
             <a href={FOR_AGE.zenodoUrl} target="_blank" rel="noreferrer">
               Official FOR-age archive ↗
             </a>
