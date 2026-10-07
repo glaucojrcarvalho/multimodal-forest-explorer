@@ -3,6 +3,7 @@ import { SiteNav } from "../components/SiteNav";
 import { SkipLink } from "../components/SkipLink";
 import { ResearchCaseCard } from "../components/ResearchCaseCard";
 import { PUBLIC_RESEARCH_PROJECTS } from "../data/research-projects";
+import { TrustPanel } from "../components/TrustPanel";
 
 const ForestExplorer = dynamic(
   () => import("../components/ForestExplorer").then((module) => module.ForestExplorer),
@@ -160,6 +161,10 @@ export default function Home() {
             <ResearchCaseCard key={project.id} project={project} />
           ))}
         </div>
+      </section>
+
+      <section className="section shell">
+        <TrustPanel />
       </section>
 
       <section className="section shell" id="sources">
