@@ -1,0 +1,81 @@
+name: Build FOR-age showcase data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-forage-showcase.yml"
+      - "scripts/build_forage_showcase.py"
+      - "data/lillomarka-specimens.ts"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: forage-showcase-data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install point-cloud dependencies
+        run: python -m pip install "laspy[lazrs]==2.5.4" "numpy==2.1.3"
+
+      - name: Download official FOR-age metadata
+        run: |
+          curl --location --fail --retry 5 --retry-all-errors \
+            --output /tmp/FORage_tree_metadata_train_val.csv \
+            "https://zenodo.org/records/19853987/files/FORage_tree_metadata_train_val.csv?download=1"
+
+      - name: Download official FOR-age training archive
+        run: |
+          curl --location --fail --retry 5 --retry-all-errors \
+            --output /tmp/forage-train.zip \
+            "https://zenodo.org/records/19853987/files/train.zip?download=1"
+
+      - name: Build deterministic browser samples
+        run: |
+          rm -rf public/data/for-age
+          python scripts/build_forage_showcase.py \
+            --archive /tmp/forage-train.zip \
+            --metadata /tmp/FORage_tree_metadata_train_val.csv \
+            --output public/data/for-age \
+            --max-points 100000
+
+      - name: Show generated files
+        run: |
+          du -h public/data/for-age/*
+          cat public/data/for-age/showcase-manifest.json
+
+      - name: Upload generated data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: forage-showcase-data
+          path: public/data/for-age/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish generated data branch
+        env:
+          DATA_BRANCH: data/forage-showcase-v1
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$DATA_BRANCH"
+          git add public/data/for-age
+          git commit -m "data: add derived FOR-age Lillomarka showcase"
+          git push --force origin "HEAD:$DATA_BRANCH"
