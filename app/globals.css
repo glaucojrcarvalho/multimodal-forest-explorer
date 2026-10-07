@@ -434,3 +434,73 @@ a {
     padding: 30px;
   }
 }
+
+
+.explorer {
+  min-width: 0;
+}
+
+.explorerControls {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.2fr);
+  gap: 22px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.explorerControls p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.controlEyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px !important;
+}
+
+.explorerControls [role="group"] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.explorerControls button {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: rgba(255,255,255,0.7);
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.explorerControls button[aria-pressed="true"] {
+  color: white;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.explorerControls button:focus-visible {
+  outline: 3px solid rgba(23, 61, 45, 0.28);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .explorerControls {
+    grid-template-columns: 1fr;
+  }
+
+  .explorerControls [role="group"] {
+    justify-content: flex-start;
+  }
+}
