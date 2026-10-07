@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a problem with the interface or visualization
+title: "[Bug] "
+labels: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+  - type: input
+    id: device
+    attributes:
+      label: Device / operating system
+  - type: dropdown
+    id: context
+    attributes:
+      label: Area
+      options:
+        - 3D scene
+        - Modality controls
+        - Research sources
+        - Accessibility
+        - Layout
+        - Other
