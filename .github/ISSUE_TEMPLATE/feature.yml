@@ -1,0 +1,32 @@
+name: Feature
+description: Propose a research or product feature
+title: "[Feature] "
+labels: []
+body:
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: What problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: research
+    attributes:
+      label: Research basis
+      description: Link public sources when the feature is research-derived.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Publication checks
+      options:
+        - label: No restricted or personal data is required
+          required: true
+        - label: External assets will have documented provenance
+          required: true
