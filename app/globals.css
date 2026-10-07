@@ -1036,3 +1036,257 @@ button:focus-visible {
     border-bottom: 0;
   }
 }
+
+
+.pointCloudLab {
+  padding: 44px;
+  border-radius: 30px;
+  color: #e8f1eb;
+  background: #122119;
+}
+
+.pointCloudHeader {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 44px;
+  align-items: end;
+}
+
+.pointCloudHeader .eyebrow {
+  color: #91ae99;
+}
+
+.pointCloudHeader h2 {
+  margin: 0;
+  max-width: 720px;
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 4vw, 60px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.pointCloudHeader > p {
+  margin: 0;
+  color: #a8bbb0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.pointCloudWorkspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.pointCloudViewport {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(55,91,67,0.16), transparent 38%),
+    #0d1712;
+}
+
+.pointCloudEmpty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.pointCloudEmpty strong {
+  font-family: Georgia, serif;
+  font-size: 29px;
+  font-weight: 400;
+}
+
+.pointCloudEmpty p {
+  max-width: 360px;
+  margin: 10px auto 0;
+  color: #789082;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.cloudAxis {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.cloudAxis span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px;
+  color: #98b6a2;
+  font-size: 9px;
+}
+
+.pointCloudStatus {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  color: #c7d8cd;
+  background: rgba(13,23,18,0.7);
+  backdrop-filter: blur(10px);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pointCloudSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.uploadCard,
+.cloudFacts,
+.specimenReferences {
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.035);
+}
+
+.fileButton {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  border-radius: 12px;
+  color: #102017;
+  background: #cfe5d5;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fileButton input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.uploadCard p,
+.specimenReferences p,
+.pointCloudNote {
+  color: #8fa69a;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.uploadCard a,
+.specimenReferences a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #c9ddd0;
+  font-size: 10px;
+  border-bottom: 1px solid rgba(201,221,208,0.3);
+}
+
+.cloudFacts > strong {
+  display: block;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.cloudFacts dl {
+  margin: 18px 0 0;
+}
+
+.cloudFacts dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 9px;
+}
+
+.cloudFacts dt {
+  color: #789082;
+}
+
+.cloudFacts dd {
+  margin: 0;
+  text-align: right;
+}
+
+.specimenReferences ul {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specimenReferences li {
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.specimenReferences li span,
+.specimenReferences code {
+  display: block;
+}
+
+.specimenReferences li span {
+  margin-bottom: 4px;
+  color: #cbdcd1;
+  font-size: 9px;
+}
+
+.specimenReferences code {
+  overflow-wrap: anywhere;
+  color: #789082;
+  font-size: 8px;
+}
+
+.pointCloudNote {
+  margin: 16px 0 0;
+}
+
+@media (max-width: 900px) {
+  .pointCloudLab {
+    padding: 28px;
+  }
+
+  .pointCloudHeader,
+  .pointCloudWorkspace {
+    grid-template-columns: 1fr;
+  }
+
+  .pointCloudViewport {
+    min-height: 470px;
+  }
+}
+
+@media (max-width: 560px) {
+  .pointCloudLab {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .pointCloudViewport {
+    min-height: 390px;
+  }
+}
