@@ -37,3 +37,30 @@ Build and TypeScript checks run for the private repository. CodeQL and Dependenc
 ## Runtime
 
 The current public experience requires no secrets and no private APIs. The health endpoint exposes only a generic service/status response.
+
+
+## Release-only production deployments
+
+Automatic Vercel Git deployments are disabled by `vercel.json`.
+
+Production deployment is triggered only when a GitHub Release is published.
+
+### One-time Vercel/GitHub setup
+
+1. In Vercel, create a **Deploy Hook** for this project targeting the production branch (`main`).
+2. Copy the generated hook URL.
+3. In GitHub, open **Settings → Secrets and variables → Actions**.
+4. Create a repository secret named `VERCEL_DEPLOY_HOOK_URL`.
+5. Store the Deploy Hook URL as the secret value.
+
+The hook URL is a credential and must never be committed to the repository.
+
+### Release flow
+
+1. Merge reviewed work into `main`.
+2. Ensure GitHub build/typecheck checks are green.
+3. Publish a GitHub Release such as `v0.1.0`.
+4. GitHub Actions runs `.github/workflows/deploy-release.yml`.
+5. The workflow calls the Vercel Deploy Hook and Vercel performs the production deployment.
+
+Pull requests and ordinary pushes do not deploy to Vercel.
