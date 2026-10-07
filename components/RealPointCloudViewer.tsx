@@ -414,6 +414,11 @@ export function RealPointCloudViewer() {
           <div className="pointCloudStatus">
             {busy ? "Loading" : cloud?.sample ? "FOR-age real data" : cloud ? "Local real data" : "Awaiting data"}
           </div>
+          {cloud ? (
+            <div className="pointCloudHint" aria-hidden="true">
+              Drag to rotate · pinch or scroll to zoom
+            </div>
+          ) : null}
           {activeSample ? (
             <div className="pointCloudProvenance">
               Lillomarka · {activeSample.modality} · {activeSample.renderedPointCount.toLocaleString("en-US")} displayed points
