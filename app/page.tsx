@@ -57,7 +57,7 @@ export default function Home() {
             <p className="lede">
               A research-oriented interface for real forest remote-sensing data,
               individual-tree 3D point clouds, published AI methods, and reproducible
-              biodiversity analysis.
+              tree-level analysis.
             </p>
             <div className="heroActions">
               <a className="primaryButton" href="#dataset">
@@ -73,7 +73,7 @@ export default function Home() {
               </a>
             </div>
             <div className="heroFootnote">
-              Real public research metadata · raw datasets added only after license review
+              Real FOR-age data · traceable derived samples · public research sources
             </div>
           </div>
 
@@ -196,8 +196,8 @@ export default function Home() {
             citations. Browser point-cloud samples are reproducible derivatives of FOR-age;
             every external layer must document provenance, attribution, and redistribution obligations.
           </p>
-          <a href="https://github.com/glaucojrcarvalho/multimodal-forest-explorer">
-            View source policy ↗
+          <a href="https://zenodo.org/records/19853987" target="_blank" rel="noreferrer">
+            View FOR-age source record ↗
           </a>
         </div>
       </section>
