@@ -1,17 +1,20 @@
 import type { MetadataRoute } from "next";
+import { SITE } from "../lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://multimodal-forest-explorer.vercel.app";
-
   return [
     {
-      url: baseUrl,
+      url: SITE.siteUrl,
       changeFrequency: "weekly",
       priority: 1
     },
     {
-      url: `${baseUrl}/disclaimer`,
+      url: `${SITE.siteUrl}/disclaimer`,
+      changeFrequency: "monthly",
+      priority: 0.5
+    },
+    {
+      url: `${SITE.siteUrl}/ethics`,
       changeFrequency: "monthly",
       priority: 0.5
     }
