@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import { SiteNav } from "../components/SiteNav";
 import { SkipLink } from "../components/SkipLink";
+import { ResearchCaseCard } from "../components/ResearchCaseCard";
+import { PUBLIC_RESEARCH_PROJECTS } from "../data/research-projects";
 
 const ForestExplorer = dynamic(
   () => import("../components/ForestExplorer").then((module) => module.ForestExplorer),
@@ -138,6 +140,25 @@ export default function Home() {
               </div>
             </li>
           </ol>
+        </div>
+      </section>
+
+      <section className="section shell" id="research">
+        <div className="sectionHeader">
+          <div>
+            <p className="eyebrow">Public research cases</p>
+            <h2>Research themes translated into an interactive product concept.</h2>
+          </div>
+          <p>
+            These case studies are based only on publicly available NIBIO pages.
+            They provide conceptual context; this site is an independent prototype
+            and does not reproduce internal software, unpublished methods, or restricted data.
+          </p>
+        </div>
+        <div className="researchGrid">
+          {PUBLIC_RESEARCH_PROJECTS.map((project) => (
+            <ResearchCaseCard key={project.id} project={project} />
+          ))}
         </div>
       </section>
 
