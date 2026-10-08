@@ -1,67 +1,44 @@
-# Deployment readiness audit
+# Deployment readiness
 
-This document describes the release gate for the first production version backed by real public forest point-cloud data.
+Forest Intelligence Explorer deploys to Vercel only when a GitHub Release is published.
 
-## Automated validation
+## Production target
 
-- [x] Next.js production build is enforced by GitHub Actions.
-- [x] TypeScript no-emit validation is enforced on pull requests.
-- [x] Security workflows are configured for the repository's private-to-public lifecycle.
-- [x] The application runtime does not require secret environment variables.
-- [x] A public health endpoint exists at `/api/health`.
+- Canonical URL: https://forest.glaucojrcarvalho.com
+- Runtime: Next.js on Vercel
+- Release trigger: GitHub `release.published`
+- Vercel Git auto-deployments: disabled
+- Deploy credential: `VERCEL_DEPLOY_HOOK_URL` GitHub Actions secret
 
-## Real-data product readiness
+## Required release validation
 
-- [x] The primary 3D laboratory renders real FOR-age individual-tree geometry, not procedural trees.
-- [x] Six browser-ready point clouds represent three real Lillomarka trees with paired ALSHD/MLS acquisitions.
-- [x] Browser samples preserve source-derived species, age, height, crown diameter, crown area, modality, split, and point counts.
-- [x] Large raw LAZ archives remain on the official Zenodo record and are not bundled into the application.
-- [x] Browser assets are deterministic derivatives produced by `scripts/build_forage_showcase.py`.
-- [x] Users can rotate/zoom the point cloud and switch among the curated trees and sensor acquisitions.
-- [x] Local LAS/LAZ inspection remains available without uploading the file to the application.
+The release workflow performs all of the following before calling Vercel:
 
-## Provenance, licensing, and scientific claims
+1. install dependencies on Node 20;
+2. run TypeScript validation;
+3. run a production Next.js build;
+4. validate the FOR-age real-data bundle;
+5. validate licensing/publication requirements;
+6. call the Vercel production deploy hook.
 
-- [x] FOR-age is identified by DOI `10.5281/zenodo.19853987`.
-- [x] The generated manifest records source record, source archive, source metadata, processing method, and license.
-- [x] FOR-age licensing is documented as Open Science & Open Model License (OSOML) v1.0.
-- [x] Derived browser assets are generated reproducibly from the official source archive.
-- [x] The interface distinguishes published/source-derived values from future or conceptual AI functionality.
-- [x] Arbitrary synthetic uncertainty/model metrics were removed from the primary research interface.
-- [x] The project states that it is independent and not institutionally endorsed.
-- [x] No private correspondence, application material, restricted endpoints, or credentials are used.
+Equivalent local command:
 
-## Security and publication
+```bash
+npm run release:check
+```
 
-- [x] Environment examples contain only public-safe placeholders.
-- [x] Baseline response security headers are configured.
-- [x] Framework identification header is disabled.
-- [x] External research links are public sources.
-- [x] The release-only Vercel deployment workflow stores its deploy hook in GitHub Secrets.
+## Data/runtime boundaries
 
-## Metadata and domain
+- Six small FOR-age-derived XYZ assets ship with the application.
+- Raw FOR-age LAS/LAZ/ZIP archives do not ship.
+- Kartverket DTM/DOM images are fetched from official WMS services through cached same-origin server routes.
+- Local LAS/LAZ files opened by a visitor are decoded in-browser and are not uploaded by the application.
+- The application contains no production ML inference service and requires no private research API.
 
-- [x] `NEXT_PUBLIC_SITE_URL` is configured for `https://forest.glaucojrcarvalho.com`.
-- [x] The custom domain resolves to the Vercel project.
-- [x] Open Graph and Twitter metadata are configured.
-- [x] Robots and sitemap routes use the canonical site URL.
-- [x] Disclaimer, ethics, and health routes are part of the application.
+## Rollout procedure
 
-## Release procedure
-
-1. Merge the final release-gate PR after Build and TypeScript checks pass.
-2. Publish GitHub release `v0.1.0`.
-3. The release event triggers `.github/workflows/deploy-release.yml`.
-4. Verify production at `https://forest.glaucojrcarvalho.com`.
-5. Smoke-test:
-   - home page;
-   - real Lillomarka point-cloud viewer;
-   - switching trees and ALSHD/MLS;
-   - dataset/source links;
-   - `/disclaimer`;
-   - `/ethics`;
-   - `/robots.txt`;
-   - `/sitemap.xml`;
-   - `/api/health`.
-
-Kartverket DTM / DOM regional context is integrated through cached official WMS requests. RGB, satellite, field observations, and additional empirical model outputs remain future improvements.
+1. Confirm the final PR is merged and main CI is green.
+2. Publish a non-prerelease GitHub release, starting with `v1.0.0`.
+3. Confirm the `Deploy release to Vercel` workflow succeeds.
+4. Execute the smoke test in `docs/RELEASE_READINESS.md`.
+5. If a critical smoke test fails, fix forward or redeploy the previous known-good production release.
