@@ -2898,3 +2898,86 @@ html {
     aspect-ratio: 1.35 / 1;
   }
 }
+
+
+/* Compact Kartverket context on narrow screens */
+
+.terrainCard figcaption {
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+}
+
+.terrainCard figcaption > strong {
+  margin: 0;
+}
+
+.terrainMeta a {
+  font-size: 11px;
+}
+
+@media (max-width: 560px) {
+  .terrainPanel {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .terrainIntro {
+    gap: 16px;
+  }
+
+  .terrainIntro > p {
+    font-size: 12px;
+  }
+
+  .terrainGrid {
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .terrainCard {
+    border-radius: 16px;
+  }
+
+  .terrainImageWrap {
+    aspect-ratio: 1.75 / 1;
+  }
+
+  .terrainBadge {
+    top: 10px;
+    left: 10px;
+    padding: 6px 8px;
+  }
+
+  .terrainCard figcaption {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .terrainCard figcaption > strong {
+    font-size: 22px;
+  }
+
+  .terrainCard figcaption p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .terrainMeta {
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+
+  .terrainMeta p {
+    font-size: 11px;
+  }
+
+  .terrainMeta > div {
+    gap: 8px 12px;
+  }
+
+  .terrainMeta a {
+    font-size: 11px;
+  }
+}
