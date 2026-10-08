@@ -1,4 +1,4 @@
-const defaultSiteUrl = "https://multimodal-forest-explorer.vercel.app";
+const defaultSiteUrl = "https://forest.glaucojrcarvalho.com";
 
 export const SITE = {
   name: "Forest Intelligence Explorer",
