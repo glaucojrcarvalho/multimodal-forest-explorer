@@ -1,6 +1,6 @@
 {
   "name": "multimodal-forest-explorer",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build"
+    "check": "npm run typecheck && npm run build",
+    "release:check": "python scripts/check_real_data_release.py && python scripts/check_public_release.py && npm run check"
   },
   "dependencies": {
     "@loaders.gl/core": "^4.4.0",
@@ -26,5 +27,8 @@
     "@types/react-dom": "^18.3.1",
     "@types/three": "^0.169.0",
     "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20 <21"
   }
 }
