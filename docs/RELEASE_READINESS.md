@@ -29,6 +29,7 @@
 
 ## Engineering
 - [x] Node 20 is declared in .nvmrc and package engines.
+- [x] package-lock.json is committed and CI/release workflows use deterministic `npm ci` installs.
 - [x] Production build and TypeScript checks run in CI.
 - [x] Real-data release gate runs in CI and before production deployment.
 - [x] Public-release policy gate runs in CI and before production deployment.

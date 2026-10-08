@@ -29,9 +29,6 @@
 - Defined MIT application-code licensing with explicit FOR-age OSOML and Kartverket boundaries.
 - Classified RGB, satellite, field observations, co-registration, and empirical inference as future research directions rather than unfinished v1 work.
 
-## 0.1.4
-- Mobile Kartverket context-card polish.
-
 ## 0.1.3
 - Kartverket terrain and landscape context.
 

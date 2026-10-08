@@ -80,7 +80,7 @@ Stack:
 Local validation:
 
 ```bash
-npm install
+npm ci
 npm run check
 python scripts/check_real_data_release.py
 python scripts/check_public_release.py
