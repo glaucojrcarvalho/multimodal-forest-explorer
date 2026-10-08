@@ -30,6 +30,6 @@ No runtime secret is required by the application itself. The Vercel deploy hook 
 ## Local validation
 
 ```bash
-npm install
+npm ci
 npm run release:check
 ```
