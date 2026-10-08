@@ -1,5 +1,7 @@
 # Forest Intelligence Explorer
 
+**Stable v1.0 research prototype** · https://forest.glaucojrcarvalho.com
+
 An independent research-oriented prototype for exploring real forest point clouds,
 tree-level analysis, and published AI research in a source-traceable interface.
 
@@ -19,7 +21,6 @@ Current shipped slice:
 - published FOR-age and ForestFormer3D research context;
 - provenance, license, disclaimer, and data-ethics boundaries.
 
-Production: https://forest.glaucojrcarvalho.com
 
 This repository is **not an official NIBIO, NMBU, SmartForest, or SingleTree project**
 and does not imply endorsement or affiliation.
@@ -80,12 +81,19 @@ Local validation:
 
 ```bash
 npm install
-npm run typecheck
-npm run build
+npm run check
+python scripts/check_real_data_release.py
+python scripts/check_public_release.py
 ```
 
-The release workflow also executes `scripts/check_real_data_release.py` before
-triggering the Vercel production hook.
+For the complete production gate:
+
+```bash
+npm run release:check
+```
+
+Published GitHub releases trigger the release-only Vercel workflow after the full
+application, real-data, licensing, and publication-surface checks pass.
 
 ## Publication principles
 
@@ -101,6 +109,8 @@ See:
 - `docs/DATA_PROVENANCE.md`
 - `docs/LICENSE_MATRIX.md`
 - `docs/RELEASE_READINESS.md`
+- `docs/SOURCE_AUDIT.md`
+- `CHANGELOG.md`
 - `/disclaimer`
 - `/ethics`
 

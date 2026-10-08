@@ -16,12 +16,12 @@ Why is the change useful?
 
 - [ ] No personal or restricted information
 - [ ] No implication of institutional endorsement
-- [ ] Synthetic data is labeled as synthetic
+- [ ] Source measurements, published metrics, and any model outputs are clearly distinguished
 
 ## Validation
 
-- [ ] Production build checked
-- [ ] Accessibility considered
+- [ ] `npm run check` passed
+- [ ] Accessibility and responsive behavior considered
 - [ ] Known limitations documented
 
 ## Related issue

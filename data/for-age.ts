@@ -2,7 +2,7 @@ export const FOR_AGE = {
   title: "FOR-age Dataset",
   doi: "10.5281/zenodo.19853987",
   zenodoUrl: "https://zenodo.org/records/19853987",
-  paperUrl: "https://www.sciencedirect.com/science/article/pii/S0034425726002324",
+  paperUrl: "https://doi.org/10.1016/j.rse.2026.115462",
   codeUrl: "https://github.com/SingleTree-EU/FORage",
   benchmarkUrl: "https://www.codabench.org/competitions/16014/",
   published: "2026-04-28",
