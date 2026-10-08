@@ -8,14 +8,22 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  validate-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check out released source
         uses: actions/checkout@v4
 
-      - name: Validate real-data release bundle
-        run: python scripts/check_real_data_release.py
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate application and publication surface
+        run: npm run release:check
 
       - name: Trigger Vercel production deployment
         env:
