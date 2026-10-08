@@ -2714,3 +2714,187 @@ html {
     margin-top: 0;
   }
 }
+
+
+/* Kartverket terrain and surface context */
+
+#terrain-context {
+  scroll-margin-top: 84px;
+}
+
+.terrainPanel {
+  padding: 42px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255,255,255,0.44);
+}
+
+.terrainIntro {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px 64px;
+  align-items: end;
+}
+
+.terrainIntro .eyebrow {
+  margin-bottom: 14px;
+}
+
+.terrainIntro h2 {
+  margin: 0;
+  max-width: 720px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.terrainIntro > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.terrainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.terrainCard {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(245,244,239,0.7);
+}
+
+.terrainImageWrap {
+  position: relative;
+  aspect-ratio: 1.58 / 1;
+  overflow: hidden;
+  background: #d9ddd7;
+}
+
+.terrainImageWrap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(0.12) contrast(1.04);
+}
+
+.terrainBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255,255,255,0.48);
+  border-radius: 999px;
+  color: #f4f7f4;
+  background: rgba(18,33,25,0.74);
+  backdrop-filter: blur(10px);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.terrainCard figcaption {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 22px;
+  padding: 20px;
+}
+
+.terrainCard figcaption span {
+  display: block;
+  color: #556259;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.terrainCard figcaption strong {
+  display: block;
+  margin-top: 6px;
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.terrainCard figcaption p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.terrainMeta {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 24px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.terrainMeta p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.terrainMeta > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px 14px;
+}
+
+.terrainMeta a {
+  color: var(--forest);
+  font-size: 10px;
+  border-bottom: 1px solid rgba(23,61,45,0.3);
+}
+
+@media (max-width: 900px) {
+  .terrainIntro,
+  .terrainMeta {
+    grid-template-columns: 1fr;
+  }
+
+  .terrainMeta > div {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .terrainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .terrainPanel {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .terrainGrid {
+    margin-top: 28px;
+  }
+
+  .terrainCard figcaption {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .terrainImageWrap {
+    aspect-ratio: 1.35 / 1;
+  }
+}
