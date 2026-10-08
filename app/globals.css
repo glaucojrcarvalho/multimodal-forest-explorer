@@ -2545,3 +2545,172 @@ html {
     font-size: 38px;
   }
 }
+
+
+/* Final public-facing polish */
+
+.mobileNav[hidden] {
+  display: none !important;
+}
+
+.hero {
+  padding-bottom: 0;
+}
+
+.heroGrid {
+  padding-top: clamp(40px, 4vw, 62px);
+  padding-bottom: clamp(34px, 4vw, 54px);
+}
+
+.explorerSection {
+  padding-top: 34px;
+}
+
+.section {
+  padding-top: 82px;
+  padding-bottom: 82px;
+}
+
+.compactSection {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.heroFootnote {
+  margin-top: 30px;
+}
+
+.liveRoadmapItem {
+  color: inherit;
+  transition: background 140ms ease, padding 140ms ease;
+}
+
+.liveRoadmapItem:hover,
+.liveRoadmapItem:focus-visible {
+  padding-right: 14px;
+  padding-left: 14px;
+  background: rgba(23, 61, 45, 0.045);
+  outline: none;
+}
+
+.liveRoadmapItem .layerStatus.live {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 1px rgba(23, 61, 45, 0.06);
+}
+
+@media (max-width: 900px) {
+  .mobileNav {
+    display: none;
+  }
+
+  .mobileNav:not([hidden]) {
+    position: fixed;
+    top: 70px;
+    right: 18px;
+    z-index: 95;
+    display: block;
+    width: min(330px, calc(100vw - 36px));
+    max-height: none;
+    overflow: visible;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(247, 246, 241, 0.98);
+    box-shadow: 0 20px 56px rgba(23, 33, 27, 0.18);
+    backdrop-filter: blur(18px);
+  }
+
+  .mobileNavPanel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 8px;
+  }
+
+  .mobileNav a {
+    min-height: 48px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  .mobileNav a:hover,
+  .mobileNav a:focus-visible {
+    color: var(--forest);
+    background: rgba(23, 61, 45, 0.06);
+  }
+
+  .heroGrid {
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+
+  .explorerSection {
+    padding-top: 28px;
+  }
+
+  .section,
+  .compactSection {
+    padding-top: 58px;
+    padding-bottom: 58px;
+  }
+
+  .researchGrid {
+    margin-top: 34px;
+  }
+}
+
+@media (max-width: 560px) {
+  .mobileNav:not([hidden]) {
+    top: 62px;
+    right: 12px;
+    width: min(300px, calc(100vw - 24px));
+    border-radius: 16px;
+  }
+
+  .mobileNavPanel {
+    padding: 7px;
+  }
+
+  .heroGrid {
+    gap: 26px;
+    padding-top: 24px;
+    padding-bottom: 18px;
+  }
+
+  .heroFootnote {
+    margin-top: 22px;
+  }
+
+  .explorerSection {
+    padding-top: 24px;
+  }
+
+  .section,
+  .compactSection {
+    padding-top: 46px;
+    padding-bottom: 46px;
+  }
+
+  .datasetPanel {
+    margin-bottom: 0;
+  }
+
+  .datasetActions {
+    gap: 8px 14px;
+  }
+
+  .evidenceGrid {
+    margin-top: 28px;
+  }
+
+  .taskGrid,
+  .roadmapRail,
+  .compactResearchGrid {
+    margin-top: 28px;
+  }
+
+  .reproPanel {
+    margin-top: 0;
+  }
+}
