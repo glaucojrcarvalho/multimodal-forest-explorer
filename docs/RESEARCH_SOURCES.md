@@ -1,6 +1,6 @@
 # Research source log
 
-This file records public material used to shape the product concept. It is not a dataset license ledger.
+This file records public material used to frame the research problem and product context. It is not a dataset license ledger. Link availability was rechecked in `docs/SOURCE_AUDIT.md`.
 
 ## NIBIO / forest digitalisation
 
