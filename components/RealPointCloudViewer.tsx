@@ -230,7 +230,7 @@ function CameraPresetController({
 export function RealPointCloudViewer() {
   const [manifest, setManifest] = useState<ShowcaseManifest | null>(null);
   const [cloud, setCloud] = useState<CloudData | null>(null);
-  const [status, setStatus] = useState("Loading curated FOR-age showcase…");
+  const [status, setStatus] = useState("Loading FOR-age Lillomarka data…");
   const [busy, setBusy] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [viewPreset, setViewPreset] = useState<ViewPreset>("perspective");
@@ -262,14 +262,14 @@ export function RealPointCloudViewer() {
         fileName: sample.sourceFile,
         sample
       });
-      setStatus("Real FOR-age geometry loaded from the reproducible Lillomarka showcase subset.");
+      setStatus("Real FOR-age geometry loaded from the Lillomarka subset.");
       setViewPreset("perspective");
       setViewRevision((value) => value + 1);
     } catch (error) {
       console.error(error);
       setCloud(null);
       setStatus(
-        "The curated real-data sample could not be loaded. You can still inspect a local LAS/LAZ file under Advanced tools."
+        "The selected FOR-age sample could not be loaded. You can still inspect a local LAS/LAZ file under Advanced tools."
       );
     } finally {
       setBusy(false);
@@ -289,10 +289,10 @@ export function RealPointCloudViewer() {
         setManifest(data);
         await loadShowcaseSample(data.samples[0]);
       } catch (error) {
-        console.info("Curated FOR-age showcase is unavailable.", error);
+        console.info("FOR-age Lillomarka data is unavailable.", error);
         if (active) {
           setStatus(
-            "The curated real-data sample is unavailable. Open a FOR-age LAS/LAZ file locally under Advanced tools."
+            "The FOR-age sample is unavailable. Open a LAS/LAZ file locally under Advanced tools."
           );
         }
       } finally {
@@ -506,7 +506,7 @@ export function RealPointCloudViewer() {
             <div className="pointCloudLoading" role="status" aria-live="polite">
               <span className="pointCloudLoadingPulse" aria-hidden="true" />
               <strong>Loading real FOR-age geometry…</strong>
-              <p>Fetching the curated Lillomarka point-cloud sample.</p>
+              <p>Fetching the selected Lillomarka point cloud.</p>
             </div>
           ) : (
             <div className="pointCloudEmpty">

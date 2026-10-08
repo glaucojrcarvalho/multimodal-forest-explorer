@@ -5,9 +5,9 @@ const tasks = [
     id: "age",
     label: "Tree age estimation",
     status: "Published benchmark",
-    title: "Estimate individual-tree age from dense 3D structure.",
+    title: "Estimating age from individual-tree 3D structure.",
     description:
-      "FOR-age evaluates non-destructive age estimation from individual-tree laser-scanning point clouds using linear baselines, PointTransformerV3, and ForestFormer3D-based fine-tuning.",
+      "FOR-age evaluates non-destructive tree-age estimation from laser-scanning point clouds using linear baselines, PointTransformerV3, and ForestFormer3D-based fine-tuning.",
     metrics: [
       ["Best reported RMSE", "≈21 years"],
       ["Best reported R²", "≈0.74"],
@@ -20,13 +20,13 @@ const tasks = [
     id: "segmentation",
     label: "Individual-tree segmentation",
     status: "Published method",
-    title: "Move from forest point clouds to tree-level objects.",
+    title: "Separating forest point clouds into tree instances.",
     description:
-      "ForestFormer3D is an end-to-end framework for panoptic segmentation of 3D forest point clouds. In the FOR-age study, pretrained ForestFormer3D representations are reused for downstream age regression.",
+      "ForestFormer3D is an end-to-end framework for panoptic segmentation of 3D forest point clouds. FOR-age reuses pretrained ForestFormer3D representations for downstream age regression.",
     metrics: [
       ["Input", "3D forest point cloud"],
       ["Output", "tree instances"],
-      ["Role here", "upstream task"]
+      ["Connection", "upstream segmentation"]
     ],
     source: "https://github.com/SmartForest-no/ForestFormer3D",
     sourceLabel: "ForestFormer3D"
@@ -37,11 +37,11 @@ export function ResearchTaskPanel() {
   return (
     <section className="taskPanel" aria-labelledby="tasks-title">
       <div className="taskIntro">
-        <p className="eyebrow">Published research tasks</p>
-        <h2 id="tasks-title">The product connects real geometry to real research questions.</h2>
+        <p className="eyebrow">Published research</p>
+        <h2 id="tasks-title">How 3D forest structure connects to current AI research.</h2>
         <p>
-          Metrics appear only where they are reported by a public source. The interface does
-          not manufacture predictions or confidence values.
+          These published results provide research context for the explorer. The metrics
+          shown below come from the cited studies rather than from a model running on this site.
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export function ResearchTaskPanel() {
               <span>{task.label}</span>
               <span>{task.status}</span>
             </div>
-            <div className="referenceBadge">Reference only · model not executed here</div>
+            <div className="referenceBadge">Published reference</div>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
 

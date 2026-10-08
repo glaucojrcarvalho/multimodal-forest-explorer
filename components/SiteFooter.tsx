@@ -18,7 +18,7 @@ export function SiteFooter() {
           <a href="/disclaimer">Research disclaimer</a>
           <a href="/ethics">Data ethics</a>
           <a href="#research">Public research</a>
-          <a href="#sources">Sources & provenance</a>
+          <a href="#reproducibility">Sources & provenance</a>
         </nav>
 
         <div className="footerMeta">

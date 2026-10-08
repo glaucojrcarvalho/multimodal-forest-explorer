@@ -49,12 +49,8 @@ export function SiteNav() {
         </button>
       </nav>
 
-      <div
-        id="mobile-navigation"
-        className="mobileNav open"
-        hidden={!open}
-      >
-        <div className="shell">
+      <div id="mobile-navigation" className="mobileNav" hidden={!open}>
+        <div className="mobileNavPanel">
           {links.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>
               {label}
