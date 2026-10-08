@@ -104,11 +104,25 @@ See:
 - `/disclaimer`
 - `/ethics`
 
-## Licensing
+## Licensing and citation
 
-The FOR-age-derived browser data and the processing code used to generate it are
-subject to the FOR-age **Open Science & Open Model License (OSOML) v1.0**, as
-published with the Zenodo record.
+Independently written application code and documentation are licensed under **MIT**
+unless a more specific file notice applies.
 
-A repository-level license for the independently written application code has not
-yet been selected. Do not infer an application-code license from the dataset license.
+The FOR-age-derived browser data under `public/data/for-age/**` and
+`scripts/build_forage_showcase.py` remain subject to the FOR-age **Open Science &
+Open Model License (OSOML) v1.0** terms published with the Zenodo record.
+
+Kartverket terrain/surface imagery is fetched from official WMS services under
+Kartverket's free-product **CC BY 4.0** terms with visible attribution.
+
+See:
+
+- `LICENSE`
+- `LICENSE_SCOPE.md`
+- `NOTICE.md`
+- `CITATION.cff`
+- `docs/LICENSE_MATRIX.md`
+
+If citing the software in research or teaching, cite Forest Intelligence Explorer and
+the underlying datasets/papers separately.
