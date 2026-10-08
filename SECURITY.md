@@ -1,13 +1,13 @@
 # Security and public-repository policy
 
-This project is designed to become public.
+This project is designed for public release and external review.
 
 ## Never commit
 
 - API keys, tokens, passwords, cookies, SSH keys, connection strings, or private URLs
 - personal application materials, private correspondence, interview notes, or contact lists
 - institution-internal documents or unpublished research received privately
-- datasets without a verified redistribution license
+- datasets or derived artifacts without a verified reuse/redistribution basis
 - personal or sensitive data
 - local machine paths, dumps, debug exports, or production logs
 

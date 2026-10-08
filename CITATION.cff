@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use Forest Intelligence Explorer in research, software demonstrations, or teaching, please cite the software and the underlying datasets separately."
+title: "Forest Intelligence Explorer"
+type: software
+authors:
+  - family-names: "Carvalho"
+    given-names: "Glauco"
+version: "1.0.0"
+date-released: "2026-10-08"
+url: "https://forest.glaucojrcarvalho.com"
+repository-code: "https://github.com/glaucojrcarvalho/multimodal-forest-explorer"
+license: MIT
+keywords:
+  - forestry
+  - lidar
+  - point clouds
+  - remote sensing
+  - geospatial
+  - multimodal AI
+  - reproducible research
