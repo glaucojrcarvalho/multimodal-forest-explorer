@@ -8,6 +8,7 @@ import { LazyPointCloudViewer } from "../components/LazyPointCloudViewer";
 import { PrototypeEvidencePanel } from "../components/PrototypeEvidencePanel";
 import { ResearchTaskPanel } from "../components/ResearchTaskPanel";
 import { ReproducibilityPanel } from "../components/ReproducibilityPanel";
+import { KartverketContextPanel } from "../components/KartverketContextPanel";
 import { FOR_AGE } from "../data/for-age";
 
 const modalities = [
@@ -21,20 +22,28 @@ const modalities = [
   },
   {
     id: "02",
+    label: "Terrain / surface",
+    status: "Live context",
+    title: "Regional elevation",
+    copy: "Kartverket DTM and DOM hillshade provide real Norwegian terrain and surface context around Lillomarka.",
+    href: "#terrain-context"
+  },
+  {
+    id: "03",
     label: "RGB",
     status: "Planned",
     title: "Canopy imagery",
     copy: "High-resolution imagery for crown boundaries, seasonal cues, and visual context."
   },
   {
-    id: "03",
+    id: "04",
     label: "Satellite",
     status: "Planned",
     title: "Landscape scale",
     copy: "Repeated Earth observations for broader spatial and temporal context."
   },
   {
-    id: "04",
+    id: "05",
     label: "Field",
     status: "Planned",
     title: "Ground reference",
@@ -84,6 +93,10 @@ export default function Home() {
       </section>
 
       <section className="section shell compactSection">
+        <KartverketContextPanel />
+      </section>
+
+      <section className="section shell compactSection">
         <PrototypeEvidencePanel />
       </section>
 
@@ -95,12 +108,12 @@ export default function Home() {
         <div className="sectionHeader roadmapHeader">
           <div>
             <p className="eyebrow">Multimodal expansion</p>
-            <h2>LiDAR today, broader forest context next.</h2>
+            <h2>LiDAR and elevation context today, broader sensing next.</h2>
           </div>
           <p>
-            The current explorer focuses on real LiDAR geometry. RGB imagery, satellite
-            observations, and field measurements are planned as complementary layers as
-            suitable public sources are integrated.
+            The explorer combines individual-tree LiDAR with Kartverket terrain and surface
+            context. RGB imagery, satellite observations, and field measurements remain
+            planned as suitable public sources are integrated.
           </p>
         </div>
 
@@ -112,13 +125,13 @@ export default function Home() {
                 key={item.id}
                 role="listitem"
                 href={item.href}
-                aria-label="Open the live LiDAR explorer"
+                aria-label={item.label === "LiDAR" ? "Open the live LiDAR explorer" : "Open the live terrain context"}
               >
                 <div className="roadmapIndex">{item.id}</div>
                 <div className="roadmapCopy">
                   <div className="roadmapTopline">
                     <span>{item.label}</span>
-                    <span className="layerStatus live">Live · open explorer</span>
+                    <span className="layerStatus live">{item.status} · open</span>
                   </div>
                   <h3>{item.title}</h3>
                   <p>{item.copy}</p>

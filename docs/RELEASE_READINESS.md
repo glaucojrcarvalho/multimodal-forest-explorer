@@ -34,6 +34,7 @@
 - [ ] Confirm at least one real point cloud renders on desktop.
 - [ ] Confirm tree and ALSHD/MLS switching.
 - [ ] Confirm mobile layout on a physical or emulated narrow viewport.
+- [ ] Confirm Kartverket DTM and DOM context images load with visible attribution.
 - [ ] Confirm Zenodo/source links.
 - [ ] Confirm disclaimer, ethics, robots, sitemap, and health endpoint.
 
