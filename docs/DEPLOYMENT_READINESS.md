@@ -64,4 +64,4 @@ This document describes the release gate for the first production version backed
    - `/sitemap.xml`;
    - `/api/health`.
 
-Kartverket terrain/canopy context and additional research-task visualization are intentionally post-v0.1 improvements and are not blockers for this release.
+Kartverket DTM / DOM regional context is integrated through cached official WMS requests. RGB, satellite, field observations, and additional empirical model outputs remain future improvements.
