@@ -44,10 +44,7 @@ export function KartverketContextPanel() {
               <span className="terrainBadge">{card.label}</span>
             </div>
             <figcaption>
-              <div>
-                <span>{card.label}</span>
-                <strong>{card.title}</strong>
-              </div>
+              <strong>{card.title}</strong>
               <p>{card.description}</p>
             </figcaption>
           </figure>
