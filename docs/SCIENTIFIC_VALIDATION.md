@@ -21,6 +21,9 @@ Random sample splits can overestimate performance when nearby observations are c
 
 A multimodal result should be compared with single-modality baselines to establish whether fusion provides measurable value.
 
-## Demo policy
+## Interface policy
 
-Synthetic values may illustrate an interface but must never be described as field measurements, model benchmarks, or research findings.
+The stable prototype displays source-derived FOR-age tree metadata, deterministic point-cloud derivatives,
+Kartverket regional context, and explicitly cited published metrics. Any future illustrative or predicted value
+must be labeled by origin and must never be presented as a field measurement, validated benchmark, or research
+finding unless the corresponding validation evidence is documented.
