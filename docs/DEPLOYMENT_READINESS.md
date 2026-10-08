@@ -14,7 +14,7 @@ Forest Intelligence Explorer deploys to Vercel only when a GitHub Release is pub
 
 The release workflow performs all of the following before calling Vercel:
 
-1. install dependencies on Node 20;
+1. install dependencies on Node 24;
 2. run TypeScript validation;
 3. run a production Next.js build;
 4. validate the FOR-age real-data bundle;
