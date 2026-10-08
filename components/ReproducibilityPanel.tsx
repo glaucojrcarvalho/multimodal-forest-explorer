@@ -16,8 +16,8 @@ const steps = [
   {
     id: "03",
     title: "Publish",
-    value: "Browser-sized XYZ",
-    copy: "Six derived binary point clouds are shipped with a manifest that preserves source filenames, metadata, DOI, and license."
+    value: "Browser-ready XYZ",
+    copy: "Six derived point-cloud assets are accompanied by a manifest preserving source filenames, metadata, DOI, and license."
   },
   {
     id: "04",
@@ -36,8 +36,8 @@ export function ReproducibilityPanel() {
           <h2 id="repro-title">From the source archive to the pixels on screen.</h2>
         </div>
         <p>
-          The viewer does not hide its data lineage. Every showcased cloud can be traced
-          back to FOR-age, and the transformation into a browser asset is deterministic.
+          Each showcased cloud is traceable to FOR-age, with a deterministic transformation
+          from the source LAZ file to the browser-ready point sample.
         </p>
       </div>
 
