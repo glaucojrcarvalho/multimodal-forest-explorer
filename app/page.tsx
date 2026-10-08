@@ -16,7 +16,8 @@ const modalities = [
     label: "LiDAR",
     status: "Live",
     title: "Individual-tree 3D",
-    copy: "Real FOR-age point clouds with tree-level geometry, labels, sensor context, and provenance."
+    copy: "Explore real FOR-age point clouds with tree geometry, labels, sensor context, and provenance.",
+    href: "#explorer"
   },
   {
     id: "02",
@@ -56,20 +57,19 @@ export default function Home() {
               <span>to individual trees.</span>
             </h1>
             <p className="lede">
-              A research-oriented interface for real forest remote-sensing data,
-              individual-tree 3D point clouds, published AI methods, and reproducible
-              tree-level analysis.
+              Explore real forest remote-sensing data through interactive 3D point clouds,
+              published AI research, and traceable tree-level measurements.
             </p>
             <div className="heroActions">
               <a className="primaryButton" href="#explorer">
                 Inspect a real tree in 3D
               </a>
               <a className="textLink" href={FOR_AGE.zenodoUrl} target="_blank" rel="noreferrer">
-                View FOR-age source ↗
+                View FOR-age dataset ↗
               </a>
             </div>
             <div className="heroFootnote">
-              Real FOR-age data · traceable derived samples · no invented model outputs
+              Real FOR-age point clouds · Lillomarka, Norway · source-traceable processing
             </div>
           </div>
 
@@ -94,31 +94,50 @@ export default function Home() {
       <section className="section shell compactSection" id="modalities">
         <div className="sectionHeader roadmapHeader">
           <div>
-            <p className="eyebrow">Multimodal roadmap</p>
-            <h2>What is implemented now, and what comes next.</h2>
+            <p className="eyebrow">Multimodal expansion</p>
+            <h2>LiDAR today, broader forest context next.</h2>
           </div>
           <p>
-            Only LiDAR is implemented in this release. Additional sensing layers stay
-            explicitly planned until equally traceable public data is integrated.
+            The current explorer focuses on real LiDAR geometry. RGB imagery, satellite
+            observations, and field measurements are planned as complementary layers as
+            suitable public sources are integrated.
           </p>
         </div>
 
         <div className="roadmapRail" role="list" aria-label="Multimodal implementation roadmap">
-          {modalities.map((item) => (
-            <article className="roadmapItem" key={item.id} role="listitem">
-              <div className="roadmapIndex">{item.id}</div>
-              <div className="roadmapCopy">
-                <div className="roadmapTopline">
-                  <span>{item.label}</span>
-                  <span className={item.status === "Live" ? "layerStatus live" : "layerStatus"}>
-                    {item.status}
-                  </span>
+          {modalities.map((item) =>
+            "href" in item ? (
+              <a
+                className="roadmapItem liveRoadmapItem"
+                key={item.id}
+                role="listitem"
+                href={item.href}
+                aria-label="Open the live LiDAR explorer"
+              >
+                <div className="roadmapIndex">{item.id}</div>
+                <div className="roadmapCopy">
+                  <div className="roadmapTopline">
+                    <span>{item.label}</span>
+                    <span className="layerStatus live">Live · open explorer</span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
                 </div>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </div>
-            </article>
-          ))}
+              </a>
+            ) : (
+              <article className="roadmapItem" key={item.id} role="listitem">
+                <div className="roadmapIndex">{item.id}</div>
+                <div className="roadmapCopy">
+                  <div className="roadmapTopline">
+                    <span>{item.label}</span>
+                    <span className="layerStatus">{item.status}</span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
+                </div>
+              </article>
+            )
+          )}
         </div>
       </section>
 
@@ -126,11 +145,11 @@ export default function Home() {
         <div className="sectionHeader researchContextHeader">
           <div>
             <p className="eyebrow">Research context</p>
-            <h2>Public work that frames the problem space.</h2>
+            <h2>Public research shaping the questions behind the explorer.</h2>
           </div>
           <p>
-            These references provide context for the prototype. They are not presented
-            as work produced by this project, and no institutional affiliation is implied.
+            Selected work from NIBIO, SmartForest, and related research provides context
+            for individual-tree sensing, segmentation, cloud-based forestry, and AI.
           </p>
         </div>
         <div className="researchGrid compactResearchGrid">
