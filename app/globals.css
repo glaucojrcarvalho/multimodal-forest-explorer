@@ -1313,28 +1313,6 @@ button:focus-visible {
     font-size: 27px;
   }
 
-  .modalityGrid {
-    margin-top: 36px;
-  }
-
-  .modalityCard {
-    min-height: 0;
-    padding: 20px;
-  }
-
-  .modalityCard h3 {
-    margin: 34px 0 12px;
-    font-size: 25px;
-  }
-
-  .cardTop {
-    align-items: center;
-    gap: 12px;
-  }
-
-  .methodSection {
-    padding: 72px 0;
-  }
 }
 
 
@@ -1442,12 +1420,10 @@ html {
 
 .datasetKicker,
 .datasetMetrics span,
-.cardTop,
 .researchCardTop,
 .taskCardTop,
 .evidenceGrid article > span,
 .evidenceSource > span,
-.trustLabel,
 .roadmapIndex,
 .reproMeta span,
 .reproIntro small {
