@@ -41,12 +41,12 @@ Additional public research context is documented under `data/` and `docs/`.
 
 ## Product boundary
 
-**Live now:** real LiDAR-derived individual-tree point clouds and source-backed
-tree metadata.
+**Live now:** real LiDAR-derived individual-tree point clouds, source-backed tree
+metadata, and Kartverket DTM / DOM hillshade as regional terrain and surface context.
 
-**Roadmap:** RGB, satellite, field observations, Kartverket terrain/canopy context,
-and additional empirical model outputs. Roadmap layers must not be presented as
-implemented until real, reusable data and provenance are integrated.
+**Roadmap:** RGB imagery, satellite observations, field measurements, and additional
+empirical model outputs. Roadmap layers are presented as planned until real, reusable
+data and provenance are integrated.
 
 ## Real-data showcase pipeline
 
