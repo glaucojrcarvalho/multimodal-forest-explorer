@@ -17,7 +17,7 @@ export function ForAgeDatasetPanel() {
 
       <div className="datasetHeader compactDatasetHeader">
         <div>
-          <p className="eyebrow">Current real-data anchor</p>
+          <p className="eyebrow">Dataset overview</p>
           <h2 id="dataset-title">FOR-age individual-tree point clouds.</h2>
         </div>
         <p>
@@ -71,7 +71,7 @@ export function ForAgeDatasetPanel() {
             <p>
               Age {FOR_AGE.lillomarka.ageRangeYears[0]}–{FOR_AGE.lillomarka.ageRangeYears[1]} years
             </p>
-            <p>Norway · paired ALSHD / MLS examples in this prototype</p>
+            <p>Norway · paired airborne and mobile laser-scanning samples</p>
           </article>
         </div>
       </details>
@@ -84,7 +84,7 @@ export function ForAgeDatasetPanel() {
       </div>
 
       <p className="datasetLicense">
-        Six deterministic XYZ derivatives are served here; original LAZ archives remain on Zenodo.
+        This explorer uses six browser-ready point-cloud samples; the original LAZ archives remain on Zenodo.
       </p>
     </section>
   );
